@@ -1,17 +1,4 @@
-/* 공통 디자인 값: 향후 색상, 폭, 간격 변경은 이곳에서 시작합니다. */
-:root {
-  --color-background: #ffffff;
-  --color-text: #17212f;
-  --color-muted: #596575;
-  --color-accent: #2346d2;
-  --color-surface: #f1f4f8;
-  --color-border: #dce2ea;
-  --content-width: 1200px;
-  --page-gutter: clamp(1.25rem, 4vw, 3rem);
-  --section-space: clamp(3rem, 7vw, 6rem);
-}
-
-/* 기본 스타일 */
+/* 새 디자인을 위한 기본 스타일 */
 *,
 *::before,
 *::after {
@@ -20,8 +7,8 @@
 
 body {
   margin: 0;
-  background: var(--color-background);
-  color: var(--color-text);
+  background: #ffffff;
+  color: #17212f;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
   font-size: 1rem;
   line-height: 1.7;
@@ -29,48 +16,202 @@ body {
   overflow-wrap: anywhere;
 }
 
-h1, h2, h3, p { margin: 0; }
-img { display: block; max-width: 100%; height: auto; }
-.container { width: min(100% - var(--page-gutter) * 2, var(--content-width)); margin-inline: auto; }
-.section { padding-block: var(--section-space); }
-
-/* 상단과 하단 */
-.site-header { border-bottom: 1px solid var(--color-border); }
-.header-inner, .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 2rem; padding-block: 1.5rem; }
-.wordmark { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.04em; }
-.wordmark span { color: var(--color-accent); }
-.header-caption, .footer-inner > p:last-child { color: var(--color-muted); font-size: 0.875rem; }
-.site-footer { margin-top: var(--section-space); border-top: 1px solid var(--color-border); }
-
-/* 소개 영역: 모바일에서는 세로 배치 */
-.intro { display: grid; gap: 2rem; align-items: center; }
-.intro-copy { min-width: 0; }
-.eyebrow { margin-bottom: 1rem; color: var(--color-accent); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em; }
-h1 { font-size: clamp(2rem, 4.3vw, 3.5rem); line-height: 1.35; letter-spacing: -0.055em; }
-.description { margin-top: 1.5rem; color: var(--color-muted); }
-.image-placeholder { display: grid; place-items: center; background: var(--color-surface); border: 1px dashed var(--color-border); padding: 1rem; }
-.cover-placeholder { aspect-ratio: 4 / 3; }
-.placeholder-label { color: var(--color-muted); font-size: 0.875rem; }
-
-/* 여행 기록: 기본 1열, 태블릿 2열, 데스크톱 3열 */
-.journal { border-top: 1px solid var(--color-border); }
-.section-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 2rem; }
-.section-heading .eyebrow { margin-bottom: 0.5rem; }
-h2 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.4; letter-spacing: -0.04em; }
-.section-caption { color: var(--color-muted); font-size: 0.875rem; }
-.travel-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-.travel-card { min-width: 0; }
-.card-placeholder { aspect-ratio: 3 / 2; }
-.card-copy { padding-top: 1.25rem; }
-.card-category { margin-bottom: 0.375rem; color: var(--color-muted); font-size: 0.875rem; letter-spacing: 0.06em; }
-h3 { font-size: 1.25rem; line-height: 1.5; }
-.card-copy > p:last-child { margin-top: 0.5rem; color: var(--color-muted); }
-
-@media (min-width: 48rem) {
-  .travel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-@media (min-width: 64rem) {
-  .intro { grid-template-columns: 1.1fr 1fr; gap: 4rem; }
-  .travel-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dashboard {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 1.5rem;
+  background: #383b2b;
+}
+
+.video-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.background-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 650ms ease-in-out;
+}
+
+.background-video.is-visible { opacity: 1; }
+
+.hero-content {
+  position: relative;
+  max-width: 100%;
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  /* 마지막 글자의 등장(2.81초)이 끝나면 위로 이동합니다. */
+  animation: title-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) 2.81s both;
+}
+
+.hero-title span[style] {
+  opacity: 0;
+  color: #ffffff;
+  -webkit-text-stroke: 0.45px rgba(255, 255, 255, 0.75);
+  animation:
+    letter-reveal 800ms ease-out calc(250ms + var(--letter) * 110ms) both,
+    letter-outline 1100ms ease-in-out 2.81s forwards;
+}
+
+@keyframes letter-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes letter-outline {
+  from { color: #ffffff; filter: none; }
+  to {
+    color: transparent;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45))
+      drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+  }
+}
+
+@keyframes title-rise {
+  from { transform: translateY(0); }
+  to { transform: translateY(-60px); }
+}
+
+.go-button {
+  position: absolute;
+  /* 이동한 문장의 아래쪽에서 정확히 16px 간격을 유지합니다. */
+  top: calc(100% - 60px + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 80px;
+  min-height: 44px;
+  padding: 0.625rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.15));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 16px rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  /* 글자 등장 2.81초 + 상승 0.9초 이후에 버튼을 표시합니다. */
+  animation: go-reveal 900ms ease-out 3.71s forwards;
+}
+
+@keyframes go-reveal {
+  from { opacity: 0; visibility: visible; filter: brightness(0.7); }
+  to { opacity: 1; visibility: visible; filter: brightness(1); }
+}
+
+.go-button:hover { background-color: rgba(255, 255, 255, 0.15); }
+.go-button:focus-visible { outline: 2px solid #ffffff; outline-offset: 4px; }
+
+.mini-player {
+  position: absolute;
+  top: calc(1rem + env(safe-area-inset-top, 0px));
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  width: 144px;
+  max-width: 100%;
+  color: #ffffff;
+}
+
+.mini-player[hidden] { display: none; }
+
+.video-toggle {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.video-toggle svg {
+  grid-area: 1 / 1;
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+}
+
+.video-toggle .pause-icon,
+.video-toggle.is-playing .play-icon { display: none; }
+.video-toggle.is-playing .pause-icon { display: block; }
+.video-toggle:hover { background: rgba(255, 255, 255, 0.15); }
+
+.video-progress {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 3px;
+  border: none;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.video-progress::-webkit-progress-bar { background: rgba(255, 255, 255, 0.3); border-radius: 999px; }
+.video-progress::-webkit-progress-value { background: white; border-radius: 999px; }
+.video-progress::-moz-progress-bar { background: white; border-radius: 999px; }
+
+.video-toggle:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-video { transition: none; }
+  .go-button { animation: none; opacity: 1; visibility: visible; }
+  .hero-title {
+    animation: none;
+    transform: translateY(-60px);
+  }
+  .hero-title span[style] {
+    animation: none;
+    opacity: 1;
+    color: transparent;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45))
+      drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+  }
 }
