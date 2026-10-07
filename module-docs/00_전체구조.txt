@@ -1,0 +1,55 @@
+﻿WORLD TOUR 모듈 안내
+작성 기준: 2026-10-07
+
+이 폴더는 실행 코드가 아니라 현재 모듈의 역할과 유지보수 방법을 설명하는 문서입니다.
+모든 경로는 WorldTour 프로젝트 루트를 기준으로 합니다.
+
+읽는 순서
+01_첫화면모듈.txt      첫 화면, 배경 영상, GO 및 로딩 전환
+02_세계지도모듈.txt    지도 표시, 대륙 데이터, 마우스 강조
+03_공통자원.txt        공통 CSS, 이미지, 디자인 자료
+04_개발도구와검증.txt  지도 데이터 생성과 테스트
+05_수정가이드.txt      원하는 변경에 따라 수정할 파일 찾기
+
+프로젝트 구조
+WorldTour/
+  index.html
+  selectWorldMap.html
+  pages/
+    landing/
+      css/page.css
+      css/background-video.css
+      css/transition.css
+      js/main.js
+      js/background-video.js
+      js/transition.js
+      videos/background.mp4
+      videos/loading.mp4
+    world-map/
+      css/page.css
+      css/continent.css
+      js/main.js
+      data/continents.js
+  shared/
+    css/base.css
+    css/tokens.css
+    images/world-map-dark-en.png
+  scripts/build-map-regions.py
+  tests/
+    assets.test.cjs
+    landing/transition.test.cjs
+    landing/lifecycle.test.cjs
+    world-map/regions.test.cjs
+  design/concepts/
+  design/generated/
+  module-docs/
+  README.md
+
+화면 흐름
+index.html → GO → 로딩 영상 → 확대·페이드 → selectWorldMap.html
+지도에서 대륙에 마우스를 올리거나 Tab으로 포커스하면 해당 대륙을 강조합니다.
+
+실행 방식
+index.html 또는 selectWorldMap.html을 브라우저로 직접 엽니다.
+서버, 패키지 설치, 빌드는 필요하지 않습니다.
+일반 defer 스크립트를 순서대로 실행하며 window.WorldTour를 통해 모듈을 연결합니다.

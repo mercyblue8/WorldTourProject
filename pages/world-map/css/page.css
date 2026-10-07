@@ -1,11 +1,7 @@
-* {
-  box-sizing: border-box;
-}
-
 html,
 body {
   margin: 0;
-  background: #031e35;
+  background: var(--color-map-background);
 }
 
 .world-map {
@@ -41,30 +37,3 @@ body {
   overflow: visible;
 }
 
-.continent {
-  fill: rgb(255 255 255 / 0%);
-  stroke: rgb(213 243 255 / 0%);
-  stroke-width: 1.2;
-  stroke-linejoin: round;
-  pointer-events: fill;
-  cursor: pointer;
-  outline: none;
-  transition: fill 180ms ease, stroke 180ms ease, filter 180ms ease;
-}
-
-.continent:hover,
-.continent:focus-visible {
-  fill: rgb(232 249 255 / 23%);
-  stroke: rgb(213 243 255 / 85%);
-  filter: drop-shadow(0 0 5px rgb(138 218 255 / 65%));
-}
-
-.continent:focus-visible {
-  stroke-width: 2.5;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .continent {
-    transition: none;
-  }
-}

@@ -1,25 +1,13 @@
-/* 새 디자인을 위한 기본 스타일 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+html,
 body {
-  margin: 0;
-  background: #ffffff;
-  color: #17212f;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  word-break: keep-all;
-  overflow-wrap: anywhere;
+    height: 100%;
+    overflow: hidden;
+    background: var(--color-landing-background);
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+.dashboard {
+    height: 100dvh;
+    overflow: hidden;
 }
 
 .dashboard {
@@ -32,26 +20,6 @@ img {
   padding: 1.5rem;
   background: #383b2b;
 }
-
-.video-background {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.background-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 650ms ease-in-out;
-}
-
-.background-video.is-visible { opacity: 1; }
 
 .hero-content {
   position: relative;
@@ -136,7 +104,6 @@ img {
 .go-button:focus-visible { outline: 2px solid #ffffff; outline-offset: 4px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .background-video { transition: none; }
   .go-button { animation: none; opacity: 1; visibility: visible; }
   .hero-title {
     animation: none;

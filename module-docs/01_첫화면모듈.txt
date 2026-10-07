@@ -1,0 +1,58 @@
+﻿첫 화면 모듈 — LANDING
+
+진입 파일: index.html
+전용 폴더: pages/landing/
+
+[HTML]
+index.html
+- 배경 영상 2개, 제목, GO 버튼, 로딩 영상, 취소 버튼을 배치합니다.
+- 세계지도 이동 전 미리보기 이미지와 오류 안내 영역을 포함합니다.
+- 영상과 이미지 경로를 연결합니다.
+
+[CSS]
+css/page.css
+- 첫 화면 배치, 제목 등장·상승 효과, GO 버튼 모양을 담당합니다.
+
+css/background-video.css
+- 배경 영상의 화면 채우기와 교차 전환을 담당합니다.
+- 두 영상의 opacity를 바꿔 650ms 동안 부드럽게 연결합니다.
+
+css/transition.css
+- GO 이후 화면 상태별 효과를 담당합니다.
+- 로딩 영상 표시, 확대, 흐림, 지도 미리보기 페이드를 처리합니다.
+- 동작 줄이기 설정에 대한 스타일을 포함합니다.
+
+[JavaScript]
+js/main.js — 페이지 조율
+- 배경 재생 및 로딩 전환 모듈을 초기화합니다.
+- GO 시작 시 배경 영상을 멈추고, 취소·오류 복구 시 다시 재생합니다.
+- 탭이 숨겨지면 배경 재생을 멈춥니다.
+- pagehide에서 자원을 정리하고 pageshow에서 다시 초기화합니다.
+
+js/background-video.js — 배경 재생
+- createBackgroundVideo(videos, options)로 생성합니다.
+- play(), pause(), destroy()를 제공합니다.
+- 6초 구간과 0.65초 교차 재생을 관리합니다.
+- 반복 호출과 취소된 비동기 작업이 중복 실행되지 않도록 상태를 관리합니다.
+
+js/transition.js — 로딩 및 페이지 이동
+- createTransition(options)로 생성합니다.
+- onStart, onRestore, navigate 콜백을 전달받습니다.
+- isBusy 상태와 destroy()를 제공합니다.
+- GO 클릭, 영상 종료, 재생 실패, Escape, 처음으로 버튼을 처리합니다.
+- 영상 종료 시 확대·페이드를 시작하고 selectWorldMap.html으로 이동합니다.
+- opacity 전환 완료를 기준으로 이동하며 1400ms 보조 타이머를 둡니다.
+- 동작 줄이기 설정에서는 짧은 페이드와 250ms 보조 타이머를 사용합니다.
+
+[영상]
+videos/background.mp4 — 첫 화면 배경 영상
+videos/loading.mp4    — GO 클릭 후 재생하는 로딩 영상
+
+[로드 순서]
+공통 tokens.css → base.css → page.css → background-video.css → transition.css
+background-video.js → transition.js → main.js
+
+[연결 관계]
+main.js → background-video.js
+main.js → transition.js
+transition.js → 로딩 영상 → 공통 지도 미리보기 → selectWorldMap.html

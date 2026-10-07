@@ -7,6 +7,7 @@ function setup(reduced = false) {
   const makeElement = () => ({
     events: {}, disabled: false, textContent: '',
     addEventListener(type, fn) { this.events[type] = fn; },
+    removeEventListener(type, fn) { if (this.events[type] === fn) delete this.events[type]; },
     setAttribute() {}, focus() {}, blur() {}, pause() {},
     play: async () => {},
   });
@@ -27,12 +28,13 @@ function setup(reduced = false) {
   const window = { ...makeElement(), location: { assign: url => visits.push(url) } };
   const timers = new Map();
   let timerID = 0;
-  vm.runInNewContext(fs.readFileSync(require.resolve('../js/go-transition.js'), 'utf8'), {
+  vm.runInNewContext(fs.readFileSync(require.resolve('../../pages/landing/js/transition.js'), 'utf8'), {
     document, window, matchMedia: () => ({ matches: reduced }),
     setTimeout: (fn, ms) => { timers.set(++timerID, { fn, ms }); return timerID; },
     clearTimeout: id => timers.delete(id),
   });
-  return { elements, classes, document, window, visits, timers,
+  const controller = window.WorldTour.createTransition();
+  return { controller, elements, classes, document, window, visits, timers,
     start: () => elements['.go-button'].events.click(),
     end: () => elements['.loading-film'].events.ended(),
     finish: () => elements['.map-arrival'].events.transitionend({
@@ -95,10 +97,14 @@ test('cancelled pending play does not restart transitions', async () => {
   assert.equal(s.timers.size, 0);
 });
 
-test('browser back restores the initial page after cached navigation', async () => {
+test('destroy resets the page and removes listeners before reinitialization', async () => {
   const s = setup();
   await s.start(); s.end(); s.finish();
-  s.window.events.pageshow({ persisted: true });
+  s.controller.destroy();
+  assert.equal(Object.keys(s.elements['.go-button'].events).length, 0);
+  assert.equal(Object.keys(s.document.events).length, 0);
+  s.window.WorldTour.createTransition();
+  assert.equal(Object.keys(s.elements['.go-button'].events).length, 1);
   assert.equal(s.classes.size, 0);
   assert.equal(s.elements['.go-button'].disabled, false);
 });
