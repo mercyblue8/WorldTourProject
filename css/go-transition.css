@@ -17,8 +17,7 @@ body {
     will-change: transform;
 }
 
-.hero-content,
-.mini-player {
+.hero-content {
     transition: opacity 420ms ease, filter 600ms ease;
 }
 
@@ -27,8 +26,7 @@ body.entering .video-background {
     filter: blur(5px);
 }
 
-body.entering .hero-content,
-body.entering .mini-player {
+body.entering .hero-content {
     opacity: 0;
     filter: blur(5px);
     pointer-events: none;
@@ -109,8 +107,7 @@ body.film-ready .transition-back {
     }
 
     .loading-scene,
-    .hero-content,
-    .mini-player {
+    .hero-content {
         transition-duration: 150ms;
     }
 }
