@@ -57,6 +57,47 @@ body.film-visible .loading-scene {
     height: 100%;
     display: block;
     object-fit: cover;
+    transform-origin: center;
+    transition: transform 1100ms cubic-bezier(.22, .61, .36, 1), filter 1100ms ease;
+}
+
+.map-arrival {
+    position: fixed;
+    inset: 0;
+    z-index: 11;
+    overflow: hidden;
+    background: #031e35;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1100ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.map-arrival img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(.92);
+    transition: transform 1100ms cubic-bezier(.22, .61, .36, 1);
+}
+
+body.map-arriving .loading-film {
+    transform: scale(1.35);
+    filter: blur(5px);
+}
+
+body.map-arriving .map-arrival {
+    opacity: 1;
+}
+
+body.map-arriving .map-arrival img {
+    transform: scale(1);
+}
+
+body.map-arriving .transition-back,
+body.map-arriving.film-ready .transition-back {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .transition-back {
@@ -98,6 +139,18 @@ body.film-ready .transition-back {
 }
 
 @media(prefers-reduced-motion:reduce) {
+
+    .loading-film,
+    body.map-arriving .loading-film,
+    .map-arrival img {
+        transform: none;
+        filter: none;
+        transition: none;
+    }
+
+    .map-arrival {
+        transition-duration: 180ms;
+    }
 
     .video-background,
     body.entering .video-background,

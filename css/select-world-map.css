@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #031e35;
+}
+
+.world-map {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.world-map__frame {
+  position: relative;
+  width: min(100%, calc(100vh * 1672 / 941));
+  width: min(100%, calc(100dvh * 1672 / 941));
+  aspect-ratio: 1672 / 941;
+}
+
+.world-map__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  /* 화면 비율이 달라도 대륙과 이름이 잘리지 않도록 전체 지도를 표시합니다. */
+  object-fit: contain;
+}
+
+.world-map__regions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.continent {
+  fill: rgb(255 255 255 / 0%);
+  stroke: rgb(213 243 255 / 0%);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  pointer-events: fill;
+  cursor: pointer;
+  outline: none;
+  transition: fill 180ms ease, stroke 180ms ease, filter 180ms ease;
+}
+
+.continent:hover,
+.continent:focus-visible {
+  fill: rgb(232 249 255 / 23%);
+  stroke: rgb(213 243 255 / 85%);
+  filter: drop-shadow(0 0 5px rgb(138 218 255 / 65%));
+}
+
+.continent:focus-visible {
+  stroke-width: 2.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continent {
+    transition: none;
+  }
+}
