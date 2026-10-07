@@ -1,0 +1,63 @@
+﻿아시아 진입 모듈
+
+흐름
+세계지도 Asia 클릭 / Enter / Space
+→ 아시아 윤곽 중심을 화면 중심으로 이동하며 3.6배 확대
+→ 아시아 지도 미리보기와 교차 페이드
+→ pages/continents/asia/index.html
+
+전환 중 Escape: 취소 후 아시아 포커스 복원
+아시아 페이지의 세계지도 링크: selectWorldMap.html 복귀
+동작 줄이기: 확대 없이 180ms 페이드
+기본 전환: 총 약 1500ms, 이벤트 누락 시 1750ms 보조 타이머
+
+신규 파일과 역할
+shared/data/continents.js
+  이동할 수 있는 대륙의 경로 목록. 현재 아시아만 등록.
+  기존 pages/world-map/data/continents.js의 SVG 윤곽 데이터와는 별개.
+
+pages/world-map/js/navigation.js
+  대륙 이벤트, 확대 중심 계산, 중복 진입 방지, 취소, 복귀.
+
+pages/world-map/css/navigation.css
+  세계지도 확대와 아시아 미리보기 페이드.
+
+pages/continents/common/css/layout.css
+  대륙 지도 전체 표시 및 세계지도 복귀 링크 디자인.
+
+pages/continents/asia/index.html
+  새 아시아 화면. HTML 직접 실행 지원.
+
+pages/continents/asia/assets/map.png
+  앞서 생성한 네이비 아시아 지도 이미지.
+  세계지도 전환 미리보기와 아시아 페이지에서 동일 파일 사용.
+
+pages/continents/asia/data/config.js
+  아시아 제목과 세계지도 복귀 경로.
+
+pages/continents/asia/js/main.js
+  아시아 페이지 설정 적용.
+
+pages/continents/asia/css/page.css
+  아시아 전용 스타일.
+
+tests/world-map/navigation.test.cjs
+  확대 중심, 전환 완료 이동, 중복 방지, Escape, 키보드, 페이지 복귀 검사.
+
+현재 범위
+아시아 지도 표시 및 진입 효과까지 구현.
+국가별 클릭과 사진 표시 기능은 다음 단계에서 추가.
+다른 대륙을 활성화할 때는 페이지와 미리보기 자원을 추가하고 경로 목록 및 전환 미리보기를 연결.
+
+추가: 세계지도 복귀 전환
+← 세계지도 클릭 → 아시아 지도 축소 → 세계지도 확대 상태에서 원래 배율로 복귀 → 세계지도 페이지 이동
+총 약 1500ms. Escape 취소와 동작 줄이기 설정 지원.
+
+pages/continents/common/js/return-transition.js
+  링크 클릭, 중복 이동 방지, 축소 완료 후 이동, 취소, 페이지 복귀 처리.
+pages/continents/common/css/return-transition.css
+  아시아 축소 및 세계지도 미리보기의 축소·페이드.
+pages/continents/asia/data/config.js
+  worldMapFocus: 세계지도 속 아시아 윤곽 중심의 정규화 좌표.
+tests/world-map/return.test.cjs
+  완료 대기, 중복 방지, 취소, 페이지 복귀, 동작 줄이기, 일반 링크 동작 검사.

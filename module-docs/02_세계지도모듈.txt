@@ -52,4 +52,6 @@ continents.js → main.js
 지도 이미지를 교체하면 기존 윤곽과 새 이미지의 위치가 맞는지 확인합니다.
 이미지 크기나 비율을 바꾸면 HTML 크기 속성과 page.css도 함께 수정합니다.
 생성된 path를 직접 고치기보다 scripts/build-map-regions.py로 재생성합니다.
-현재 기능은 Hover/Focus 강조이며, 대륙 클릭 후 이동 기능은 포함하지 않습니다.
+현재 아시아는 클릭 또는 Enter/Space로 아시아 페이지에 진입할 수 있습니다.
+다른 대륙은 Hover/Focus 강조만 지원합니다.
+추가된 navigation.js와 navigation.css의 설명은 06_아시아진입모듈.txt를 참고하세요.

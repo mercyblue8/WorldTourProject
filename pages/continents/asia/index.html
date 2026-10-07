@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="국가별 경계와 영문 이름으로 살펴보는 아시아 지도." />
+  <title>World Tour | Asia</title>
+  <link rel="stylesheet" href="../../../shared/css/tokens.css" />
+  <link rel="stylesheet" href="../../../shared/css/base.css" />
+  <link rel="stylesheet" href="../common/css/layout.css" />
+  <link rel="stylesheet" href="../common/css/return-transition.css" />
+  <link rel="stylesheet" href="./css/page.css" />
+  <script src="./data/config.js" defer></script>
+  <script src="../common/js/return-transition.js" defer></script>
+  <script src="./js/main.js" defer></script>
+</head>
+<body>
+  <main class="continent-page" aria-label="아시아 지도">
+    <img class="continent-page__map" src="./assets/map.png" width="1672" height="941"
+      alt="네이비 배경에 아시아 국가들의 경계와 영문 이름을 표시한 지도" fetchpriority="high" />
+  </main>
+  <a class="continent-page__back" href="../../../selectWorldMap.html">← 세계지도</a>
+  <div class="world-return" aria-hidden="true">
+    <div class="world-return__frame">
+      <img src="../../../shared/images/world-map-dark-en.png" width="1672" height="941" alt="" decoding="async" />
+    </div>
+  </div>
+</body>
+</html>

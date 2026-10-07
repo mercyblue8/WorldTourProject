@@ -10,7 +10,10 @@
   <link rel="stylesheet" href="./shared/css/base.css" />
   <link rel="stylesheet" href="./pages/world-map/css/page.css" />
   <link rel="stylesheet" href="./pages/world-map/css/continent.css" />
+  <link rel="stylesheet" href="./pages/world-map/css/navigation.css" />
+  <script src="./shared/data/continents.js" defer></script>
   <script src="./pages/world-map/data/continents.js" defer></script>
+  <script src="./pages/world-map/js/navigation.js" defer></script>
   <script src="./pages/world-map/js/main.js" defer></script>
 </head>
 
@@ -24,6 +27,10 @@
         role="group" aria-label="대륙 탐색"></svg>
     </div>
   </main>
+  <div class="continent-arrival" aria-hidden="true">
+    <img src="./pages/continents/asia/assets/map.png" width="1672" height="941" alt="" decoding="async" />
+  </div>
+  <p class="navigation-status" role="status"></p>
 </body>
 
 </html>

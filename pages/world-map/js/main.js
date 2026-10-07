@@ -13,10 +13,18 @@
         class: 'continent', id: region.id, tabindex: '0', role: 'img',
         'aria-label': region.label, d: region.path,
       };
+      const destination = app.continentPages?.[region.id];
+      if (destination) {
+        attributes.role = 'link';
+        attributes['aria-label'] = `${destination.label} — 대륙 지도 열기`;
+        attributes['data-destination'] = destination.href;
+      }
       Object.entries(attributes).forEach(([name, value]) => path.setAttribute(name, value));
       return path;
     });
     svg.replaceChildren(...regions);
+    app.worldMapNavigation?.destroy();
+    if (app.createContinentNavigation) app.worldMapNavigation = app.createContinentNavigation(root);
   };
 
   app.initWorldMap();

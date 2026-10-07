@@ -53,3 +53,6 @@ index.html → GO → 로딩 영상 → 확대·페이드 → selectWorldMap.htm
 index.html 또는 selectWorldMap.html을 브라우저로 직접 엽니다.
 서버, 패키지 설치, 빌드는 필요하지 않습니다.
 일반 defer 스크립트를 순서대로 실행하며 window.WorldTour를 통해 모듈을 연결합니다.
+
+추가 모듈
+06_아시아진입모듈.txt — 아시아 확대 전환과 새 대륙 페이지 구조

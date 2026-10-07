@@ -1,0 +1,4 @@
+/* Keep the framing identical to the world-map transition preview. */
+.continent-page__map {
+  object-position: center;
+}

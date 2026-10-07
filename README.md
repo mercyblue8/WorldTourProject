@@ -109,7 +109,7 @@ HTML이나 원본 이미지는 수정하지 않습니다. 생성된 path는 직�
 Node.js가 설치된 환경에서 실행합니다. 추가 패키지는 필요하지 않습니다.
 
 ```sh
-node --test tests/assets.test.cjs tests/landing/transition.test.cjs tests/landing/lifecycle.test.cjs tests/world-map/regions.test.cjs
+node --test tests/assets.test.cjs tests/landing/transition.test.cjs tests/landing/lifecycle.test.cjs tests/world-map/regions.test.cjs tests/world-map/navigation.test.cjs tests/world-map/return.test.cjs
 ```
 
 자원 경로, 영상 완료 후 이동, 취소, 재생 실패, 이벤트 정리, 배경 재생 조율,
@@ -118,3 +118,38 @@ node --test tests/assets.test.cjs tests/landing/transition.test.cjs tests/landin
 
 수동 확인: GO → 영상 종료 → 지도 이동, Escape 취소, 브라우저 뒤로 가기,
 대륙 Hover/Tab 강조, 서로 다른 화면 비율, 동작 줄이기 설정을 확인하세요.
+
+## 아시아 페이지와 대륙 이동
+
+세계지도에서 Asia를 클릭하거나 Tab으로 선택한 뒤 Enter/Space를 누르면
+아시아 중심으로 약 1.5초간 확대·페이드하며 아시아 페이지로 이동합니다.
+Escape로 전환을 취소할 수 있습니다. 동작 줄이기 설정에서는 확대 없이 짧게 페이드합니다.
+아시아 페이지의 세계지도 링크로 돌아올 수 있습니다.
+
+- `shared/data/continents.js`: 이동 가능한 대륙과 페이지 경로. 현재 아시아만 등록되어 있습니다.
+- `pages/world-map/js/navigation.js`: 대륙 진입, 키보드, 취소, 복귀 처리.
+- `pages/world-map/css/navigation.css`: 대륙 중심 확대와 아시아 미리보기 페이드.
+- `pages/continents/common/css/layout.css`: 대륙 페이지 지도 배치와 뒤로가기 링크.
+- `pages/continents/asia/index.html`: 아시아 지도 화면.
+- `pages/continents/asia/assets/map.png`: 앞서 생성한 아시아 지도 시안.
+- `pages/continents/asia/data/config.js`: 페이지 제목과 세계지도 복귀 경로.
+- `pages/continents/asia/js/main.js`: 아시아 페이지 초기화.
+- `pages/continents/asia/css/page.css`: 아시아 전용 스타일.
+- `tests/world-map/navigation.test.cjs`: 진입, 중복 방지, 취소, 키보드, 복귀 검사.
+
+현재 아시아 페이지는 지도 표시 단계입니다. 국가별 선택 영역과 사진 패널은 아직 추가하지 않았습니다.
+추가 설명은 `module-docs/06_아시아진입모듈.txt`를 참고하세요.
+
+### 세계지도로 돌아오기
+
+아시아 페이지의 `← 세계지도` 링크는 약 1.5초간 반대 방향으로 축소·페이드한 뒤 세계지도로 이동합니다.
+세계지도 미리보기는 아시아 중심으로 확대된 상태에서 원래 배율로 돌아오므로 진입 효과와 연결됩니다.
+Escape로 취소할 수 있으며, 동작 줄이기 설정에서는 짧은 페이드로 대체합니다.
+Ctrl/Command 클릭과 새 탭 열기는 일반 링크 동작을 유지합니다.
+
+- 공통 동작: `pages/continents/common/js/return-transition.js`
+- 공통 효과: `pages/continents/common/css/return-transition.css`
+- 아시아 확대 중심: `pages/continents/asia/data/config.js`의 `worldMapFocus`
+- 검증: `tests/world-map/return.test.cjs`
+
+세계지도 윤곽을 바꾸면 `worldMapFocus`도 해당 대륙의 새 중심에 맞춰 갱신하세요.
