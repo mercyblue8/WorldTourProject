@@ -1,0 +1,36 @@
+.country-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.country-entering .continent-page__frame {
+  transform-origin: var(--country-origin);
+  animation: country-dive 1400ms cubic-bezier(.55, .04, .25, 1) both;
+  pointer-events: none;
+}
+.country-entering .country-portal {
+  visibility: visible;
+  animation: country-portal-reveal 950ms ease 450ms both;
+}
+.country-entering .country-info,
+.country-entering .continent-page__back { visibility: hidden; }
+.country-region.is-entering .country-shape {
+  fill: rgb(199 239 255 / 40%);
+  stroke: #e2f8ff;
+  filter: drop-shadow(0 0 7px #9bddff);
+}
+@keyframes country-dive {
+  from { transform: translate(0, 0) scale(1); filter: blur(0); }
+  to { transform: translate(var(--country-x), var(--country-y)) scale(7); filter: blur(5px); }
+}
+@keyframes country-portal-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .country-entering .continent-page__frame { animation: none; }
+  .country-entering .country-portal { animation-duration: 180ms; animation-delay: 0ms; }
+}

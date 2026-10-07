@@ -2,3 +2,15 @@
 .continent-page__map {
   object-position: center;
 }
+
+.continent-page {
+  display: grid;
+  place-items: center;
+}
+
+.continent-page__frame {
+  position: relative;
+  width: min(100%, calc(100vh * 1672 / 941));
+  width: min(100%, calc(100dvh * 1672 / 941));
+  aspect-ratio: 1672 / 941;
+}

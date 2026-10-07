@@ -24,7 +24,8 @@
   object-fit: contain;
 }
 
-.world-returning .continent-page__map {
+.world-returning .continent-page > .continent-page__map,
+.world-returning .continent-page__frame {
   animation: continent-withdraw 1100ms ease both;
 }
 
@@ -58,7 +59,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .world-returning .continent-page__map,
+  .world-returning .continent-page > .continent-page__map,
+  .world-returning .continent-page__frame,
   .world-returning .world-return__frame {
     animation: none;
   }

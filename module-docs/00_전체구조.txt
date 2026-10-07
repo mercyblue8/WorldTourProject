@@ -56,3 +56,12 @@ index.html 또는 selectWorldMap.html을 브라우저로 직접 엽니다.
 
 추가 모듈
 06_아시아진입모듈.txt — 아시아 확대 전환과 새 대륙 페이지 구조
+
+07_아시아국가선택.txt — 국가 강조, 클릭 선택 및 해제
+
+08_일본페이지진입.txt — Japan 확대 전환과 국가별 페이지
+
+국가 페이지 폴더 규칙
+- pages/asia-countries/japan/: 일본 전용 HTML, CSS, JS, data
+- pages/countries/common/: 모든 대륙의 국가 페이지가 공유하는 스타일과 기능
+- 이후 유럽 국가는 pages/europe-countries/ 아래에 추가합니다.

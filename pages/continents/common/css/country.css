@@ -1,0 +1,68 @@
+.country-regions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.country-region {
+  outline: none;
+  cursor: pointer;
+}
+
+.country-shape {
+  fill: rgb(183 229 255 / 0%);
+  stroke: rgb(193 233 255 / 0%);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  pointer-events: fill;
+  transition: fill 160ms ease, stroke 160ms ease, filter 160ms ease;
+}
+
+.country-region:hover .country-shape,
+.country-region:focus-visible .country-shape {
+  fill: rgb(183 229 255 / 26%);
+  stroke: rgb(205 241 255 / 85%);
+  filter: drop-shadow(0 0 4px rgb(110 204 255 / 65%));
+}
+
+.country-region[aria-pressed="true"] .country-shape {
+  fill: rgb(142 216 255 / 38%);
+  stroke: #e2f8ff;
+  stroke-width: 1.8;
+  filter: drop-shadow(0 0 6px rgb(116 218 255 / 85%));
+}
+
+.country-region:focus-visible .country-shape { stroke-width: 2.5; }
+.country-marker { fill: #97cce9; stroke: #0c192c; stroke-width: 1; pointer-events: none; }
+.country-marker-hit { fill: transparent; pointer-events: all; }
+.country-region:hover .country-marker,
+.country-region:focus-visible .country-marker,
+.country-region[aria-pressed="true"] .country-marker {
+  fill: #fff;
+  filter: drop-shadow(0 0 5px #b1edff);
+}
+
+.country-info {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  max-width: calc(100vw - 40px);
+  padding: 10px 16px;
+  border: 1px solid #bde5ff55;
+  border-radius: 12px;
+  background: #0c192ce8;
+  color: #e7f5ff;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.country-info__state { margin-left: 12px; color: #9cdcff; font-size: 12px; }
+.country-announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.world-returning .country-info { visibility: hidden; }
+.world-returning .country-regions { pointer-events: none; visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .country-shape { transition: none; }
+}

@@ -9,17 +9,42 @@
   <link rel="stylesheet" href="../../../shared/css/base.css" />
   <link rel="stylesheet" href="../common/css/layout.css" />
   <link rel="stylesheet" href="../common/css/return-transition.css" />
+  <link rel="stylesheet" href="../common/css/country.css" />
+  <link rel="stylesheet" href="../../countries/common/css/hero.css" />
+  <link rel="stylesheet" href="../common/css/country-navigation.css" />
   <link rel="stylesheet" href="./css/page.css" />
   <script src="./data/config.js" defer></script>
+  <script src="./data/countries.js" defer></script>
+  <script src="./data/destinations.js" defer></script>
+  <script src="../common/js/country-navigation.js" defer></script>
+  <script src="../common/js/selection.js" defer></script>
   <script src="../common/js/return-transition.js" defer></script>
   <script src="./js/main.js" defer></script>
 </head>
 <body>
   <main class="continent-page" aria-label="아시아 지도">
-    <img class="continent-page__map" src="./assets/map.png" width="1672" height="941"
-      alt="네이비 배경에 아시아 국가들의 경계와 영문 이름을 표시한 지도" fetchpriority="high" />
+    <div class="continent-page__frame">
+      <img class="continent-page__map" src="./assets/map.png" width="1672" height="941"
+        alt="네이비 배경에 아시아 국가들의 경계와 영문 이름을 표시한 지도" fetchpriority="high" />
+      <svg class="country-regions" viewBox="0 0 1672 941" xmlns="http://www.w3.org/2000/svg"
+        role="group" aria-label="아시아 국가 선택"></svg>
+    </div>
   </main>
+  <div class="country-info" hidden>
+    <span class="country-info__name"></span>
+    <span class="country-info__state"></span>
+  </div>
+  <p class="country-announcement" role="status" aria-live="polite"></p>
   <a class="continent-page__back" href="../../../selectWorldMap.html">← 세계지도</a>
+  <div class="country-portal" aria-hidden="true">
+    <div class="country-hero">
+      <div class="country-hero__content">
+        <p class="country-hero__eyebrow">ASIA / JAPAN</p>
+        <h2 class="country-hero__title">Japan</h2>
+        <p class="country-hero__name">일본</p>
+      </div>
+    </div>
+  </div>
   <div class="world-return" aria-hidden="true">
     <div class="world-return__frame">
       <img src="../../../shared/images/world-map-dark-en.png" width="1672" height="941" alt="" decoding="async" />

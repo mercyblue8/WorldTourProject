@@ -5,7 +5,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 test('both entry pages reference existing local files in defer order', () => {
-  for (const page of ['index.html', 'selectWorldMap.html', 'pages/continents/asia/index.html']) {
+  for (const page of ['index.html', 'selectWorldMap.html', 'pages/continents/asia/index.html', 'pages/asia-countries/japan/index.html']) {
     const html = fs.readFileSync(path.join(root, page), 'utf8');
     for (const [, reference] of html.matchAll(/(?:src|href)="(\.[^"#]+)"/g)) {
       assert.ok(fs.existsSync(path.resolve(root, path.dirname(page), reference)), `${page}: ${reference}`);

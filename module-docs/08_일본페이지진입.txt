@@ -1,0 +1,30 @@
+﻿일본 페이지 진입
+
+Japan 클릭 또는 Enter/Space → 일본 윤곽 중심을 향해 7배 확대 → 페이드 → 일본 페이지
+기본 전환 약 1400ms, 보조 타이머 1650ms.
+동작 줄이기 설정에서는 확대 없이 180ms 페이드, 250ms 보조 타이머.
+Escape로 취소 가능. 일본 페이지에서 아시아 지도 링크로 복귀.
+
+pages/continents/asia/data/destinations.js
+  국가별 목적지. 현재 JP만 등록.
+pages/continents/common/js/country-navigation.js
+  국가 진입, 확대 중심, 중복 방지, 취소 및 복귀 상태 처리.
+pages/continents/common/css/country-navigation.css
+  일본으로 확대되는 효과 및 새 화면 미리보기 페이드.
+pages/continents/common/js/selection.js
+  onActivate 콜백이 true를 반환하면 국가 선택 대신 페이지 진입 처리.
+pages/countries/common/css/hero.css
+  국가 첫 화면과 전환 미리보기가 공유하는 스타일.
+pages/asia-countries/japan/index.html
+  일본 새 페이지. Japan 제목과 아시아 지도 복귀 링크.
+pages/asia-countries/japan/css/page.css
+  일본 페이지 배경과 복귀 링크 스타일.
+pages/asia-countries/japan/data/config.js
+  제목과 아시아 지도 복귀 경로.
+pages/asia-countries/japan/js/main.js
+  페이지 설정 적용.
+tests/world-map/country-navigation.test.cjs
+  Japan 이동, 다른 국가 선택 유지, 취소, 중복 방지, 복귀, 동작 줄이기 검사.
+
+현재 일본 페이지는 기본 화면이며 국가별 사진 콘텐츠는 아직 추가하지 않았습니다.
+자동 테스트 총 26개 통과. 실제 브라우저 시각 검증은 별도 필요.

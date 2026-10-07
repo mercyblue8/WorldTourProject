@@ -109,7 +109,7 @@ HTML이나 원본 이미지는 수정하지 않습니다. 생성된 path는 직�
 Node.js가 설치된 환경에서 실행합니다. 추가 패키지는 필요하지 않습니다.
 
 ```sh
-node --test tests/assets.test.cjs tests/landing/transition.test.cjs tests/landing/lifecycle.test.cjs tests/world-map/regions.test.cjs tests/world-map/navigation.test.cjs tests/world-map/return.test.cjs
+node --test tests/assets.test.cjs tests/landing/transition.test.cjs tests/landing/lifecycle.test.cjs tests/world-map/regions.test.cjs tests/world-map/navigation.test.cjs tests/world-map/return.test.cjs tests/world-map/countries.test.cjs
 ```
 
 자원 경로, 영상 완료 후 이동, 취소, 재생 실패, 이벤트 정리, 배경 재생 조율,
@@ -137,7 +137,7 @@ Escape로 전환을 취소할 수 있습니다. 동작 줄이기 설정에서는
 - `pages/continents/asia/css/page.css`: 아시아 전용 스타일.
 - `tests/world-map/navigation.test.cjs`: 진입, 중복 방지, 취소, 키보드, 복귀 검사.
 
-현재 아시아 페이지는 지도 표시 단계입니다. 국가별 선택 영역과 사진 패널은 아직 추가하지 않았습니다.
+아시아 페이지에서 국가별 Hover/Focus 강조와 클릭 선택을 지원합니다. 사진 패널은 아직 추가하지 않았습니다.
 추가 설명은 `module-docs/06_아시아진입모듈.txt`를 참고하세요.
 
 ### 세계지도로 돌아오기
@@ -153,3 +153,41 @@ Ctrl/Command 클릭과 새 탭 열기는 일반 링크 동작을 유지합니다
 - 검증: `tests/world-map/return.test.cjs`
 
 세계지도 윤곽을 바꾸면 `worldMapFocus`도 해당 대륙의 새 중심에 맞춰 갱신하세요.
+
+### 아시아 국가 선택
+
+- 마우스 Hover 또는 Tab 포커스: 해당 국가 강조와 한글·영문 이름 표시.
+- 클릭 또는 Enter/Space: 선택 유지. 다른 국가를 선택하면 기존 선택 해제.
+- 같은 국가 재클릭, 바다 클릭 또는 Escape: 선택 해제.
+- 작은 국가·지역은 지도 위 작은 포인트로 선택합니다.
+- `pages/continents/common/js/selection.js`: 국가 SVG 생성과 선택 상태.
+- `pages/continents/common/css/country.css`: Hover, 선택 효과, 국가명 안내.
+- `pages/continents/asia/data/countries.js`: 50개 선택 항목의 이름·윤곽·포인트.
+- `scripts/build-asia-regions.py`: 이미지 경계 추출과 수동 보정으로 데이터 재생성.
+- `tests/world-map/countries.test.cjs`: 선택 상태, 키보드, 해제, 대표 좌표 판정.
+
+윤곽은 생성된 지도 시안에 맞춘 UI 감지 영역이며 공식 지리 경계 데이터가 아닙니다.
+특히 작은 국가와 도서 지역은 단순화된 윤곽 또는 포인트를 사용합니다.
+원본 이미지 수정 없이 `python scripts/build-asia-regions.py`로 재생성할 수 있습니다.
+Python, Pillow, NumPy가 필요하며 기존 build-map-regions.py의 윤곽 함수를 재사용합니다.
+
+### 일본 페이지 진입
+
+아시아 지도에서 Japan 클릭 또는 Enter/Space로 일본 위치를 향해 약 1.4초 확대하며
+`pages/asia-countries/japan/index.html`로 이동합니다. Escape로 취소할 수 있습니다.
+일본 페이지에는 Japan 제목과 아시아 지도 복귀 링크를 배치했습니다. 국가별 사진 콘텐츠는 이후 추가합니다.
+다른 국가는 기존 선택 강조를 유지합니다.
+
+- 목적지: `pages/continents/asia/data/destinations.js`
+- 공통 진입: `pages/continents/common/js/country-navigation.js`
+- 진입 효과: `pages/continents/common/css/country-navigation.css`
+- 국가 첫 화면 스타일: `pages/countries/common/css/hero.css`
+- 일본 화면: `pages/asia-countries/japan/` 아래 HTML, CSS, JS, data
+- 테스트: `tests/world-map/country-navigation.test.cjs`
+
+전체 검사: `node --test tests/assets.test.cjs tests/landing/*.test.cjs tests/world-map/*.test.cjs`
+
+국가 페이지 폴더 규칙
+- pages/asia-countries/japan/: 일본 전용 HTML, CSS, JS, data
+- pages/countries/common/: 모든 대륙의 국가 페이지가 공유하는 스타일과 기능
+- 이후 유럽 국가는 pages/europe-countries/ 아래에 추가합니다.

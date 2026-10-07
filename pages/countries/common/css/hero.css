@@ -1,0 +1,28 @@
+.country-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 40%, #19354c 0%, #0c192c 65%);
+  color: #edf6ff;
+  text-align: center;
+}
+.country-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: clamp(180px, 28vw, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #c26769, #6e303e);
+  opacity: .55;
+  box-shadow: 0 0 100px #cf717119;
+}
+.country-hero__content { padding: 24px; }
+.country-hero__eyebrow { margin: 0 0 20px; font-size: 12px; letter-spacing: .35em; color: #bed5e4; }
+.country-hero__title { margin: 0; font-size: clamp(64px, 11vw, 160px); font-weight: 300; line-height: 1.15; letter-spacing: -.04em; }
+.country-hero__name { margin: 20px 0 0; font-size: 16px; letter-spacing: .4em; color: #d1e1ed; }

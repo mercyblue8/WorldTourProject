@@ -46,7 +46,7 @@ tests/world-map/navigation.test.cjs
 
 현재 범위
 아시아 지도 표시 및 진입 효과까지 구현.
-국가별 클릭과 사진 표시 기능은 다음 단계에서 추가.
+국가별 Hover와 클릭 선택은 구현 완료. 사진 표시 기능은 다음 단계에서 추가.
 다른 대륙을 활성화할 때는 페이지와 미리보기 자원을 추가하고 경로 목록 및 전환 미리보기를 연결.
 
 추가: 세계지도 복귀 전환
@@ -61,3 +61,5 @@ pages/continents/asia/data/config.js
   worldMapFocus: 세계지도 속 아시아 윤곽 중심의 정규화 좌표.
 tests/world-map/return.test.cjs
   완료 대기, 중복 방지, 취소, 페이지 복귀, 동작 줄이기, 일반 링크 동작 검사.
+
+국가 선택 상세: 07_아시아국가선택.txt 참고.
