@@ -45,9 +45,14 @@
       frame.style.setProperty('--country-origin', `${x * 100}% ${y * 100}%`);
       frame.style.setProperty('--country-x', `${window.innerWidth / 2 - (bounds.left + bounds.width * x)}px`);
       frame.style.setProperty('--country-y', `${window.innerHeight / 2 - (bounds.top + bounds.height * y)}px`);
-      overlay.querySelector('.country-hero__title').textContent = next.title;
-      overlay.querySelector('.country-hero__name').textContent = next.name;
-      overlay.querySelector('.country-hero__eyebrow').textContent = next.eyebrow;
+      for (const [selector, text] of [
+        ['.country-hero__title', next.title],
+        ['.country-hero__name', next.name],
+        ['.country-hero__eyebrow', next.eyebrow],
+      ]) {
+        const field = overlay.querySelector(selector);
+        if (field) field.textContent = text;
+      }
       document.querySelector('.country-announcement').textContent = `${next.name} 페이지로 이동합니다.`;
       node.classList.add('is-entering');
       svg.setAttribute('aria-busy', 'true');

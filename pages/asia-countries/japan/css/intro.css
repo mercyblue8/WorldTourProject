@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Abhaya Libre';
+  src: url('../../../../shared/fonts/abhaya-libre/AbhayaLibre-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+.japan-intro {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+  color: #21234d;
+  font-family: 'Abhaya Libre', Georgia, serif;
+  font-weight: 500;
+  /* 180px on the 3840px reference canvas; scales to smaller screens. */
+  font-size: min(180px, 4.6875vw);
+  line-height: 1.15;
+  white-space: pre;
+  pointer-events: none;
+  animation: japan-intro-exit 800ms ease var(--exit-delay) both;
+}
+.japan-intro[hidden] { display: none; }
+.japan-intro__letter {
+  opacity: 0;
+  animation: japan-letter-reveal 800ms ease-out calc(250ms + var(--letter) * 110ms) both;
+}
+@keyframes japan-letter-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes japan-intro-exit {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .japan-intro__letter { animation: none; opacity: 1; }
+}

@@ -191,3 +191,17 @@ Python, Pillow, NumPy가 필요하며 기존 build-map-regions.py의 윤곽 함�
 - pages/asia-countries/japan/: 일본 전용 HTML, CSS, JS, data
 - pages/countries/common/: 모든 대륙의 국가 페이지가 공유하는 스타일과 기능
 - 이후 유럽 국가는 pages/europe-countries/ 아래에 추가합니다.
+
+### 일본 페이지 도쿄 사진 슬라이더
+
+첫 화면 아래 흰 배경에 Tokyo | 東京 제목과 사진 두 장을 표시합니다.
+데스크톱에서는 두 장, 모바일에서는 한 장씩 보이며 가로 방향으로 순환합니다.
+하단 막대형 표시, 이전/다음 버튼, 사진 클릭, 좌우 방향키, 마우스 드래그와 터치로 이동합니다.
+활성 사진에 맞춰 위치 표시가 바뀝니다. 자동 재생은 하지 않습니다.
+세로 스크롤은 유지하고 동작 줄이기 설정에서는 즉시 전환합니다.
+
+- 공통 CSS: pages/countries/common/css/gallery.css
+- 공통 JS: pages/countries/common/js/gallery.js
+- 도쿄 섹션: pages/asia-countries/japan/index.html, css/page.css
+- 사진: assets/images/tokyo-nightlife.png, tokyo-crossing.png (일본 페이지 기준)
+- 검사: node --test tests/assets.test.cjs tests/world-map/gallery.test.cjs

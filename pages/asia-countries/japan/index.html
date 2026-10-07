@@ -7,18 +7,44 @@
   <title>World Tour | Japan</title>
   <link rel="stylesheet" href="../../../shared/css/tokens.css" />
   <link rel="stylesheet" href="../../../shared/css/base.css" />
-  <link rel="stylesheet" href="../../countries/common/css/hero.css" />
+  <link rel="stylesheet" href="./css/hero.css" />
+  <link rel="stylesheet" href="./css/intro.css" />
   <link rel="stylesheet" href="./css/page.css" />
+  <link rel="stylesheet" href="../../countries/common/css/gallery.css" />
   <script src="./data/config.js" defer></script>
+  <script src="./js/intro.js" defer></script>
+  <script src="../../countries/common/js/gallery.js" defer></script>
   <script src="./js/main.js" defer></script>
 </head>
 <body>
-  <main class="country-hero">
-    <div class="country-hero__content">
-      <p class="country-hero__eyebrow">ASIA / JAPAN</p>
-      <h1 class="country-hero__title">Japan</h1>
-      <p class="country-hero__name">일본</p>
-    </div>
+  <main>
+    <section class="tokyo-hero" aria-label="일본 첫 화면">
+      <img class="tokyo-hero__image" src="./assets/images/JapanMainPage.png" width="3840" height="2160"
+        alt="벚꽃과 후지산, 가와구치호 풍경 위에 こんにちは와 Japan | 日本 문구가 표시된 일본 첫 화면" fetchpriority="high" />
+      <h1 class="japan-intro" aria-label="Japan | Tradition Meets Culture" hidden>Japan | Tradition Meets Culture</h1>
+    </section>
+    <section class="city-section" aria-labelledby="tokyo-heading">
+      <h2 id="tokyo-heading">Tokyo | <span lang="ja">東京</span></h2>
+      <div class="photo-gallery" role="region" aria-roledescription="사진 슬라이더" aria-label="도쿄 사진">
+        <div class="photo-gallery__viewport" tabindex="0" aria-label="좌우 방향키로 사진 이동">
+          <div class="photo-gallery__track">
+            <button class="photo-slide" type="button" data-index="0" aria-label="도쿄의 밤 사진 선택">
+              <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명과 꽃가루 아래 공연을 즐기는 사람들" loading="lazy" draggable="false" />
+            </button>
+            <button class="photo-slide" type="button" data-index="1" aria-label="도쿄 교차로 사진 선택">
+              <img src="./assets/images/tokyo-crossing.png" alt="높은 곳에서 바라본 도쿄의 대형 횡단보도와 거리" loading="lazy" draggable="false" />
+            </button>
+          </div>
+        </div>
+        <div class="photo-gallery__controls">
+          <div class="photo-gallery__pagination" aria-label="사진 위치">
+            <button class="photo-gallery__dot" type="button" data-slide="0" aria-label="사진 1로 이동" aria-current="true"></button>
+            <button class="photo-gallery__dot" type="button" data-slide="1" aria-label="사진 2로 이동"></button>
+          </div>
+        </div>
+        <p class="photo-gallery__status" role="status" aria-live="polite">사진 1 / 2</p>
+      </div>
+    </section>
   </main>
   <a class="country-back" href="../../continents/asia/index.html">← 아시아 지도</a>
 </body>

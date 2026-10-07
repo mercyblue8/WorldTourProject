@@ -1,0 +1,21 @@
+﻿도쿄 사진 슬라이더
+
+일본 첫 화면 아래에 흰 배경과 초록색 Tokyo | 東京 제목을 배치했습니다.
+첨부한 공연 사진과 교차로 사진 두 장을 가로로 순환합니다.
+PC: 두 장 표시. 모바일: 한 장 표시.
+현재 사진: 하단의 회색 긴 막대로 표시. 다른 사진은 검은 점으로 표시.
+조작: 사진/위치 표시 클릭, 이전·다음 버튼, 방향키, 마우스 드래그, 터치.
+자동 재생 없음. 세로 스크롤 유지. 동작 줄이기 지원.
+
+파일
+pages/countries/common/css/gallery.css — 카드 크기, 간격, 모서리, 위치 표시
+pages/countries/common/js/gallery.js — 이동, 순환, 제스처, 위치 동기화
+pages/asia-countries/japan/index.html — 섹션 및 사진 목록
+pages/asia-countries/japan/css/page.css — 흰 배경, 제목, 섹션 여백
+pages/asia-countries/japan/js/main.js — 슬라이더 초기화
+pages/asia-countries/japan/assets/images/tokyo-nightlife.png — 첫 사진
+pages/asia-countries/japan/assets/images/tokyo-crossing.png — 두 번째 사진
+tests/world-map/gallery.test.cjs — 순환, 위치 표시, 키보드, 가로/세로 제스처 검사
+
+사진 추가 시 HTML 사진 버튼의 data-index와 위치 표시의 data-slide를 함께 맞춥니다.
+현재 두 장 기준으로 구성했으며 더 많은 사진을 추가하면 다중 위치 이동 로직도 확장해야 합니다.
