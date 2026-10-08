@@ -1,0 +1,69 @@
+.country-back {
+  z-index: 30;
+  position: fixed;
+  top: max(20px, env(safe-area-inset-top));
+  left: max(20px, env(safe-area-inset-left));
+  padding: 9px 16px;
+  border: 1px solid #bfdfff55;
+  border-radius: 999px;
+  background: #0c192cdd;
+  color: #e6f2ff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.country-back:hover {
+  background: #214360;
+}
+
+.country-back:focus-visible {
+  outline: 2px solid #d5f3ff;
+  outline-offset: 4px;
+}
+
+.country-return-preview {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 40;
+  background: #0c192c;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.country-return-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.country-returning main {
+  animation: country-return-blur 900ms ease both;
+}
+.country-returning .country-back { opacity: 0; pointer-events: none; }
+.country-returning .country-return-preview {
+  visibility: visible;
+  pointer-events: auto;
+  animation: country-return-reveal 900ms ease both;
+}
+.country-returning .country-return-preview img {
+  animation: country-return-focus 900ms ease both;
+}
+@keyframes country-return-blur {
+  from { filter: blur(0); opacity: 1; }
+  to { filter: blur(12px); opacity: 0; }
+}
+@keyframes country-return-reveal {
+  0%, 20% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes country-return-focus {
+  from { filter: blur(10px); }
+  to { filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .country-returning main { animation: none; }
+  .country-returning .country-return-preview img { animation: none; }
+  .country-returning .country-return-preview { animation-duration: 180ms; }
+}
