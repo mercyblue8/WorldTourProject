@@ -6,5 +6,9 @@
   // Start the lettering only after the destination's hero is ready to paint.
   const ready = hero.decode ? hero.decode().catch(() => {}) : Promise.resolve();
   ready.then(() => window.WorldTour.playJapanIntro());
-  document.querySelectorAll('.photo-gallery').forEach(gallery => window.WorldTour.createPhotoGallery(gallery));
+  window.WorldTour.initJapanPhotoReveal();
+  window.WorldTour.createPhotoNavigation(
+    document.querySelector('.japan-photos'),
+    document.querySelector('.photo-navigation')
+  );
 })();

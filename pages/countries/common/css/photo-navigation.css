@@ -1,0 +1,39 @@
+.photo-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 24px 80px;
+}
+.photo-navigation[hidden] { display: none; }
+.photo-navigation__button {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent var(--nav-default) center / contain no-repeat;
+  cursor: pointer;
+}
+.photo-navigation__button[data-direction="prev"] {
+  --nav-default: url('../assets/navigation/left-default.png');
+  --nav-hover: url('../assets/navigation/left-hover.png');
+  --nav-focus: url('../assets/navigation/left-focus.png');
+  --nav-disabled: url('../assets/navigation/left-disabled.png');
+}
+.photo-navigation__button[data-direction="next"] {
+  --nav-default: url('../assets/navigation/right-default.png');
+  --nav-hover: url('../assets/navigation/right-hover.png');
+  --nav-focus: url('../assets/navigation/right-focus.png');
+  --nav-disabled: url('../assets/navigation/right-disabled.png');
+}
+.photo-navigation__button:hover { background-image: var(--nav-hover); }
+.photo-navigation__button:focus-visible {
+  background-image: var(--nav-focus);
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+.photo-navigation__button:disabled {
+  background-image: var(--nav-disabled);
+  cursor: default;
+}

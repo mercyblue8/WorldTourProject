@@ -11,7 +11,7 @@ function setup(reduced = false) {
     setAttribute(name, value) { this.attributes[name] = value; },
     removeAttribute(name) { delete this.attributes[name]; },
     focus() { this.focused = true; },
-    classList: { add() {}, remove() {} },
+    classList: { add() { }, remove() { } },
   });
   const back = element(), overlay = element(), frame = element();
   const styles = {};
@@ -29,7 +29,7 @@ function setup(reduced = false) {
     clearTimeout: id => timers.delete(id),
   });
   window.WorldTour.createWorldMapReturn({ worldMapHref: '../../../selectWorldMap.html', worldMapFocus: { x: .75, y: .3 } }, href => visits.push(href));
-  const click = (extra = {}) => back.events.click({ button: 0, preventDefault() {}, ...extra });
+  const click = (extra = {}) => back.events.click({ button: 0, preventDefault() { }, ...extra });
   const finish = () => frame.events.animationend({ target: frame, animationName: 'world-return-zoom' });
   return { back, frame, overlay, document, window, timers, visits, styles, click, finish };
 }
@@ -68,6 +68,6 @@ test('modified clicks retain normal link behavior; timer supports skipped animat
   const s = setup();
   s.click({ ctrlKey: true, preventDefault() { assert.fail('modified link intercepted'); } });
   assert.equal(s.timers.size, 0);
-  s.click(); [...s.timers.values()][0].fn();
+  s.click();[...s.timers.values()][0].fn();
   assert.equal(s.visits.length, 1);
 });

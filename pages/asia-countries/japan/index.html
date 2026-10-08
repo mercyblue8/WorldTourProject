@@ -11,10 +11,12 @@
   <link rel="stylesheet" href="./css/hero.css" />
   <link rel="stylesheet" href="./css/intro.css" />
   <link rel="stylesheet" href="./css/page.css" />
-  <link rel="stylesheet" href="../../countries/common/css/gallery.css" />
+  <link rel="stylesheet" href="./css/photo-reveal.css" />
+  <link rel="stylesheet" href="../../countries/common/css/photo-navigation.css" />
   <script src="./data/config.js" defer></script>
   <script src="./js/intro.js" defer></script>
-  <script src="../../countries/common/js/gallery.js" defer></script>
+  <script src="./js/photo-reveal.js" defer></script>
+  <script src="../../countries/common/js/photo-navigation.js" defer></script>
   <script src="./js/main.js" defer></script>
 </head>
 <body>
@@ -24,28 +26,28 @@
         alt="벚꽃과 후지산, 가와구치호 풍경 위에 こんにちは와 Japan | 日本 문구가 표시된 일본 첫 화면" fetchpriority="high" decoding="sync" />
       <h1 class="japan-intro" aria-label="Japan | Tradition Meets Culture" hidden>Japan | Tradition Meets Culture</h1>
     </section>
-    <section class="city-section" aria-labelledby="tokyo-heading">
-      <h2 id="tokyo-heading">Tokyo | <span lang="ja">東京</span></h2>
-      <div class="photo-gallery" role="region" aria-roledescription="사진 슬라이더" aria-label="도쿄 사진">
-        <div class="photo-gallery__viewport" tabindex="0" aria-label="좌우 방향키로 사진 이동">
-          <div class="photo-gallery__track">
-            <button class="photo-slide" type="button" data-index="0" aria-label="도쿄의 밤 사진 선택">
-              <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명과 꽃가루 아래 공연을 즐기는 사람들" loading="lazy" draggable="false" />
-            </button>
-            <button class="photo-slide" type="button" data-index="1" aria-label="도쿄 교차로 사진 선택">
-              <img src="./assets/images/tokyo-crossing.png" alt="높은 곳에서 바라본 도쿄의 대형 횡단보도와 거리" loading="lazy" draggable="false" />
-            </button>
-          </div>
-        </div>
-        <div class="photo-gallery__controls">
-          <div class="photo-gallery__pagination" aria-label="사진 위치">
-            <button class="photo-gallery__dot" type="button" data-slide="0" aria-label="사진 1로 이동" aria-current="true"></button>
-            <button class="photo-gallery__dot" type="button" data-slide="1" aria-label="사진 2로 이동"></button>
-          </div>
-        </div>
-        <p class="photo-gallery__status" role="status" aria-live="polite">사진 1 / 2</p>
-      </div>
+    <section id="japan-photos" class="japan-photos" tabindex="0" aria-label="일본의 거리와 밤 풍경, 가로 스크롤로 사진 탐색">
+      <figure class="japan-photos__item">
+        <img src="./assets/images/tokyo-crossing.png" alt="높은 곳에서 바라본 스크램블 교차로와 거리" loading="lazy" />
+        <figcaption class="japan-photos__name">시부야-스크램블 교차로</figcaption>
+      </figure>
+      <figure class="japan-photos__item">
+        <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명 아래 사람들로 붐비는 클럽" loading="lazy" />
+        <figcaption class="japan-photos__name">신주쿠-클럽 워프</figcaption>
+      </figure>
+      <figure class="japan-photos__item">
+        <img src="./assets/images/chiba-disneyland.jpg" alt="노을 속 디즈니랜드 성과 방문객들" loading="lazy" />
+        <figcaption class="japan-photos__name">치바현-디즈니랜드</figcaption>
+      </figure>
+      <figure class="japan-photos__item">
+        <img src="./assets/images/shibuya-sky.jpg" alt="전망대에서 내려다본 도쿄의 푸른 야경" loading="lazy" />
+        <figcaption class="japan-photos__name">시부야 - 시부야스카이</figcaption>
+      </figure>
     </section>
+    <div class="photo-navigation" role="group" aria-label="사진 이동" hidden>
+      <button class="photo-navigation__button" data-direction="prev" type="button" aria-label="이전 사진" aria-controls="japan-photos"></button>
+      <button class="photo-navigation__button" data-direction="next" type="button" aria-label="다음 사진" aria-controls="japan-photos"></button>
+    </div>
   </main>
   <a class="country-back" href="../../continents/asia/index.html">← 아시아 지도</a>
 </body>

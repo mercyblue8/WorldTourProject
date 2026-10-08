@@ -1,0 +1,69 @@
+.japan-photos {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 400px;
+  justify-content: start;
+  overflow-x: auto;
+  scroll-padding-inline: clamp(24px, 5vw, 80px);
+  scrollbar-width: none;
+  gap: clamp(28px, 5vw, 88px);
+  /* Both edges remain visible; the initial left spacing scrolls with the cards. */
+  width: 100%;
+  margin-inline: 0;
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 5vw, 80px) 40px;
+  padding-left: calc(max(0px, 50% - 800px) + clamp(24px, 5vw, 80px));
+}
+
+.japan-photos::-webkit-scrollbar { display: none; }
+
+.japan-photos__item {
+  margin: 0;
+  align-self: start;
+  scroll-snap-align: start;
+  border-radius: 32px;
+  transition: opacity 1100ms ease, transform 1100ms cubic-bezier(.2, .65, .3, 1);
+}
+
+.japan-photos__item img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: inherit;
+  box-shadow: 0 18px 40px rgb(20 30 50 / 15%);
+}
+
+.japan-photos__name {
+  margin-top: 24px;
+  color: #21234d;
+  font-size: clamp(16px, 1.1vw, 20px);
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.japan-photos__item.is-pending {
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+/* Reveal the photos from left to right. */
+@media (min-width: 701px) {
+  .japan-photos__item:nth-child(2):not(.is-pending) {
+    transition-delay: 200ms;
+  }
+  .japan-photos__item:nth-child(3):not(.is-pending) {
+    transition-delay: 400ms;
+  }
+  .japan-photos__item:nth-child(4):not(.is-pending) {
+    transition-delay: 600ms;
+  }
+}
+
+@media (max-width: 700px) {
+  .japan-photos { grid-auto-columns: min(400px, 80vw); gap: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .japan-photos__item { transition: none; }
+  .japan-photos__item.is-pending { opacity: 1; transform: none; }
+}
