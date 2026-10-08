@@ -1,0 +1,24 @@
+:root {
+  --cursor-default: url('../images/cursors/default.png') 8 8, auto;
+  --cursor-hover: url('../images/cursors/hover.png') 8 8, pointer;
+  --cursor-pressed: url('../images/cursors/pressed.png') 8 8, pointer;
+  --cursor-drag: url('../images/cursors/drag.png') 8 8, grabbing;
+}
+html, body { cursor: var(--cursor-default); }
+body * { cursor: inherit !important; }
+body :is(a[href], button, [role="button"], [role="link"], .continent, .country-region, [data-cursor="hover"]),
+body :is(a[href], button, [role="button"], [role="link"], .continent, .country-region, [data-cursor="hover"]) * {
+  cursor: var(--cursor-hover) !important;
+}
+body :is(input:not([type="button"]):not([type="submit"]), textarea, [contenteditable="true"]) {
+  cursor: text !important;
+}
+body :is(button:disabled, [aria-disabled="true"]),
+body :is(button:disabled, [aria-disabled="true"]) * {
+  cursor: var(--cursor-default) !important;
+}
+html[data-cursor-state="pressed"] body,
+html[data-cursor-state="pressed"] body * { cursor: var(--cursor-pressed) !important; }
+html[data-cursor-state="drag"] body,
+html[data-cursor-state="drag"] body *,
+body .is-dragging, body .is-dragging * { cursor: var(--cursor-drag) !important; }

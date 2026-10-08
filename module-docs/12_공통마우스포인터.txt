@@ -1,0 +1,22 @@
+웹사이트 공통 마우스 포인터
+
+파일
+- shared/images/cursors/default.png: 기본 상태
+- shared/images/cursors/hover.png: 선택 가능한 버튼/링크/지도 위
+- shared/images/cursors/pressed.png: 마우스 왼쪽 버튼을 누르는 동안
+- shared/images/cursors/drag.png: 드래그 상태
+- shared/css/cursor.css: 이미지 경로, 클릭 기준점(8, 8), 상태별 스타일
+- shared/js/cursor.js: 클릭/드래그 상태 및 해제 처리
+
+새 페이지 적용
+공통 cursor.css와 defer 방식의 cursor.js를 연결합니다.
+기존 페이지와 동일하게 페이지 main.js 전에 cursor.js를 연결하면 됩니다.
+일반 버튼/링크와 role="button" 또는 role="link" 요소는 자동으로 호버 커서를 사용합니다.
+추가 요소에는 data-cursor="hover" 속성을 사용할 수 있습니다.
+커스텀 드래그 기능은 드래그 중 요소에 is-dragging 클래스를 붙이면 됩니다.
+이 모듈은 드래그 기능 자체를 추가하지 않습니다.
+입력란에는 텍스트 커서를 유지하며 비활성 버튼은 기본 디자인을 사용합니다.
+마우스를 놓거나 창 포커스를 잃으면 클릭 상태를 해제합니다.
+
+디자인 교체는 공통 PNG 4개를 교체하면 전체 페이지에 반영됩니다.
+첨부된 원본 크기(32px, 클릭 상태 33x32px)를 그대로 사용합니다.
