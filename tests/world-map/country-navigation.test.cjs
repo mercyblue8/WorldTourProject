@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function setup(reduced = false) {
+function setup(reduced = false, decode) {
   const node = () => ({
     events: {}, attributes: {}, classList: { add() {}, remove() {} },
     addEventListener(name, fn) { this.events[name] = fn; },
@@ -13,12 +13,14 @@ function setup(reduced = false) {
     focus() { this.focused = true; },
   });
   const fields = {};
-  const overlay = { ...node(), querySelector: name => fields[name] ||= {} };
+  const overlay = { ...node(), querySelector: name => name === '.tokyo-hero__image' ? (decode ? { decode } : null) : fields[name] ||= {} };
   const frame = { style: { setProperty() {} }, getBoundingClientRect: () => ({ left: 0, top: 0, width: 1672, height: 941 }) };
   const svg = { ...node(), viewBox: { baseVal: { width: 1672, height: 941 } } };
   const back = node();
   const elements = { '.continent-page__frame': frame, '.country-regions': svg, '.country-portal': overlay, '.continent-page__back': back, '.country-announcement': {} };
   const document = { ...node(), body: node(), querySelector: name => elements[name] };
+  const classes = new Set();
+  document.body.classList = { add: name => classes.add(name), remove: name => classes.delete(name) };
   const window = { ...node(), innerWidth: 1672, innerHeight: 941 };
   const timers = new Map(); let id = 0;
   const visits = [];
@@ -28,7 +30,7 @@ function setup(reduced = false) {
   const controller = window.WorldTour.createCountryNavigation({ JP: { href: '../../asia-countries/japan/index.html', title: 'Japan', name: '일본', eyebrow: 'ASIA / JAPAN' } }, href => visits.push(href));
   const japan = { ...node(), getBBox: () => ({ x: 1150, y: 300, width: 110, height: 182 }) };
   const finish = () => overlay.events.animationend({ target: overlay, animationName: 'country-portal-reveal' });
-  return { controller, japan, finish, visits, timers, document, window, back, fields };
+  return { controller, japan, finish, visits, timers, document, window, back, fields, classes };
 }
 
 test('Japan starts a single zoom navigation; other countries retain selection', () => {
@@ -67,4 +69,34 @@ test('reduced motion fallback navigates and destroy removes pending work', () =>
   assert.equal(s.visits.length, 1);
   s.controller.destroy();
   assert.equal(s.timers.size, 0);
+});
+
+test('completed preview remains painted on departure and resets on cached return', () => {
+  const s = setup();
+  s.controller.activate('JP', s.japan);
+  s.finish();
+  s.window.events.pagehide();
+  assert.equal(s.classes.has('country-entering'), true);
+  s.finish();
+  assert.equal(s.visits.length, 1);
+  s.window.events.pageshow();
+  assert.equal(s.classes.has('country-entering'), false);
+  assert.equal(s.back.inert, false);
+});
+
+test('preview decoding delays reveal and Escape cancels the pending reveal', async () => {
+  let resolve;
+  const s = setup(false, () => new Promise(done => { resolve = done; }));
+  s.controller.activate('JP', s.japan);
+  assert.equal(s.classes.has('country-entering'), false);
+  s.document.events.keydown({ key: 'Escape' });
+  resolve();
+  await Promise.resolve(); await Promise.resolve();
+  assert.equal(s.classes.has('country-entering'), false);
+  assert.equal(s.timers.size, 0);
+  s.controller.activate('JP', s.japan);
+  await Promise.resolve();
+  assert.equal(s.classes.has('country-entering'), true);
+  s.finish();
+  assert.equal(s.visits.length, 1);
 });

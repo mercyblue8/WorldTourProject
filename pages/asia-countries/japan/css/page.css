@@ -1,4 +1,5 @@
-body { background: #fff; }
+html { overflow-x: clip; }
+body { background: #fff; overflow-x: clip; }
 .city-section {
   min-height: 100vh;
   padding: clamp(24px, 3vw, 56px) 0 clamp(100px, 14vh, 180px);

@@ -10,6 +10,10 @@
     let activeNode = null;
     let timer;
     let navigated = false;
+    let generation = 0;
+    const preview = overlay.querySelector('.tokyo-hero__image');
+    // Decode before revealing the preview; a cached file may still need decoding.
+    const previewReady = preview?.decode ? preview.decode().catch(() => {}) : null;
     const listeners = [];
 
     function on(target, event, handler) {
@@ -17,6 +21,7 @@
       listeners.push(() => target.removeEventListener(event, handler));
     }
     function reset() {
+      generation++;
       clearTimeout(timer);
       destination = null;
       navigated = false;
@@ -57,8 +62,14 @@
       node.classList.add('is-entering');
       svg.setAttribute('aria-busy', 'true');
       back.inert = true;
-      document.body.classList.add('country-entering');
-      timer = setTimeout(finish, reduced.matches ? 250 : 1650);
+      const current = ++generation;
+      const start = () => {
+        if (current !== generation || !destination) return;
+        document.body.classList.add('country-entering');
+        timer = setTimeout(finish, reduced.matches ? 250 : 1650);
+      };
+      if (previewReady) previewReady.then(start);
+      else start();
       return true;
     }
     on(overlay, 'animationend', event => {
@@ -70,7 +81,12 @@
         activeNode?.focus({ preventScroll: true });
       }
     });
-    on(window, 'pagehide', reset);
+    // Keep the final preview painted until the next document replaces this one.
+    // pageshow resets it when this document is restored from the back/forward cache.
+    on(window, 'pagehide', () => {
+      if (navigated) clearTimeout(timer);
+      else reset();
+    });
     on(window, 'pageshow', reset);
     return { activate, destroy() { reset(); listeners.forEach(remove => remove()); } };
   };
