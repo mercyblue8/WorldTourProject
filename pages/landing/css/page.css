@@ -43,23 +43,12 @@ body {
   opacity: 0;
   color: #ffffff;
   -webkit-text-stroke: 0.45px rgba(255, 255, 255, 0.75);
-  animation:
-    letter-reveal 800ms ease-out calc(250ms + var(--letter) * 110ms) both,
-    letter-outline 1100ms ease-in-out 2.81s forwards;
+  animation: letter-reveal 800ms ease-out calc(250ms + var(--letter) * 110ms) both;
 }
 
 @keyframes letter-reveal {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-@keyframes letter-outline {
-  from { color: #ffffff; filter: none; }
-  to {
-    color: transparent;
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45))
-      drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
-  }
 }
 
 @keyframes title-rise {
@@ -112,8 +101,6 @@ body {
   .hero-title span[style] {
     animation: none;
     opacity: 1;
-    color: transparent;
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45))
-      drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+    color: #ffffff;
   }
 }
