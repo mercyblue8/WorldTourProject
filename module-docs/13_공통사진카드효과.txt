@@ -1,0 +1,30 @@
+국가 페이지 공통 사진 카드 효과
+
+파일
+- pages/countries/common/css/photo-card.css
+
+사용 방법
+1. 국가 HTML에 공통 photo-card.css를 연결합니다.
+   예: <link rel="stylesheet" href="../../countries/common/css/photo-card.css" />
+2. 카드에 country-photo-card 클래스를 추가합니다.
+   <figure class="country-photo-card">
+     <img src="사진 경로" alt="사진 설명" />
+     <figcaption>장소 이름</figcaption>
+   </figure>
+3. 카드 크기, 모서리, 이미지 비율과 배치는 국가 페이지 CSS에서 지정합니다.
+   스크롤 영역에서는 확대된 카드와 그림자가 잘리지 않도록 여백을 둡니다.
+
+동작
+- 마우스를 올리면 카드 전체가 8px 올라가고 1.025배 확대됩니다.
+- 직접 자식 img의 그림자가 진해지며, 진입과 복귀 모두 300ms로 전환합니다.
+- 터치 환경과 동작 줄이기 설정에서는 호버 이동과 확대를 적용하지 않습니다.
+- 클릭 동작이나 모달, JavaScript 초기화는 포함하지 않습니다.
+- 공통 CSS의 수치를 바꾸면 연결된 모든 국가 카드에 반영됩니다.
+
+등장 애니메이션과 함께 사용하기
+- 페이지에서 --country-photo-card-reveal에 opacity/transform 전환 목록을 지정할 수 있습니다.
+- 등장 지연은 이 목록에만 지정하세요. 카드의 transition/transition-delay를 직접
+  덮어쓰면 공통 호버 전환에도 영향을 줄 수 있습니다.
+- is-pending 클래스가 있으면 호버 효과를 기다립니다. 등장 시 제거하세요.
+- 현재 일본의 순차 등장 효과는 일본 photo-reveal.css/js에서 관리하며,
+  호버 효과는 이 공통 모듈에서 관리합니다.

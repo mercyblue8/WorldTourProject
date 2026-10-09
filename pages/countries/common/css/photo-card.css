@@ -1,0 +1,28 @@
+/* Shared card motion. Pages may supply entrance transitions separately. */
+.country-photo-card {
+  transition: var(--country-photo-card-reveal, opacity 0s),
+    translate 300ms ease, scale 300ms ease;
+}
+
+.country-photo-card > img {
+  box-shadow: 0 18px 40px rgb(20 30 50 / 15%);
+  transition: box-shadow 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .country-photo-card:not(.is-pending):hover {
+    translate: 0 -8px;
+    scale: 1.025;
+  }
+
+  .country-photo-card:not(.is-pending):hover > img {
+    box-shadow: 0 24px 48px rgb(20 30 50 / 22%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .country-photo-card,
+  .country-photo-card > img {
+    transition: none;
+  }
+}

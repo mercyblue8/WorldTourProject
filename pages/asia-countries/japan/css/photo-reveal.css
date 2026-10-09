@@ -21,7 +21,8 @@
   align-self: start;
   scroll-snap-align: start;
   border-radius: 32px;
-  transition: opacity 1100ms ease, transform 1100ms cubic-bezier(.2, .65, .3, 1);
+  --country-photo-card-reveal: opacity 1100ms ease var(--photo-reveal-delay, 0ms),
+    transform 1100ms cubic-bezier(.2, .65, .3, 1) var(--photo-reveal-delay, 0ms);
 }
 
 .japan-photos__item img {
@@ -29,7 +30,6 @@
   aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: inherit;
-  box-shadow: 0 18px 40px rgb(20 30 50 / 15%);
 }
 
 .japan-photos__name {
@@ -49,13 +49,13 @@
 /* Reveal the photos from left to right. */
 @media (min-width: 701px) {
   .japan-photos__item:nth-child(2):not(.is-pending) {
-    transition-delay: 200ms;
+    --photo-reveal-delay: 200ms;
   }
   .japan-photos__item:nth-child(3):not(.is-pending) {
-    transition-delay: 400ms;
+    --photo-reveal-delay: 400ms;
   }
   .japan-photos__item:nth-child(4):not(.is-pending) {
-    transition-delay: 600ms;
+    --photo-reveal-delay: 600ms;
   }
 }
 
@@ -64,6 +64,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .japan-photos__item { transition: none; }
   .japan-photos__item.is-pending { opacity: 1; transform: none; }
 }
