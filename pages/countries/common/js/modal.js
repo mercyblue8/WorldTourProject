@@ -2,7 +2,7 @@
   const app = window.WorldTour = window.WorldTour || {};
 
   // Native dialog provides focus containment and makes the background inert.
-  app.createCountryModal = (dialog, root = document) => {
+  app.createCountryModal = (dialog, root = document, { beforeOpen = () => true } = {}) => {
     if (!dialog) return;
     const triggers = Array.from(root.querySelectorAll('[data-country-modal]'))
       .filter(trigger => trigger.getAttribute('data-country-modal') === dialog.id);
@@ -49,6 +49,7 @@
     };
     const open = trigger => {
       if (dialog.open) return;
+      if (beforeOpen(trigger) === false) return;
       const style = document.body.style;
       const styles = {};
       for (const key of ['position', 'top', 'left', 'width', 'overflow']) styles[key] = style[key];

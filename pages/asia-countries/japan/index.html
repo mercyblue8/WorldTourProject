@@ -17,10 +17,12 @@
   <link rel="stylesheet" href="../../countries/common/css/photo-navigation.css" />
   <link rel="stylesheet" href="../../countries/common/css/country-return.css" />
   <script src="./data/config.js" defer></script>
+  <script src="./data/modal-cards.js" defer></script>
   <script src="./js/intro.js" defer></script>
   <script src="./js/photo-reveal.js" defer></script>
   <script src="../../countries/common/js/photo-navigation.js" defer></script>
   <script src="../../countries/common/js/country-return.js" defer></script>
+  <script src="../../countries/common/js/modal-content.js" defer></script>
   <script src="../../countries/common/js/modal.js" defer></script>
   <script src="../../../shared/js/cursor.js" defer></script>
   <script src="./js/main.js" defer></script>
@@ -35,8 +37,8 @@
     </section>
     <section id="japan-photos" class="japan-photos" tabindex="0" aria-label="일본의 거리와 밤 풍경, 가로 스크롤로 사진 탐색">
       <figure class="japan-photos__item country-photo-card">
-        <button class="country-photo-card__trigger" type="button" data-country-modal="shibuya-modal"
-          aria-haspopup="dialog" aria-controls="shibuya-modal" aria-label="시부야 스크램블 교차로 자세히 보기">
+        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shibuya-crossing"
+          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="시부야 스크램블 교차로 자세히 보기">
           <img src="./assets/images/tokyo-crossing.png" alt="높은 곳에서 바라본 스크램블 교차로와 거리" loading="lazy" />
         </button>
         <figcaption class="japan-photos__name">시부야-스크램블 교차로</figcaption>
@@ -60,9 +62,9 @@
     </div>
   </main>
   <a class="country-back" href="../../continents/asia/index.html">Return</a>
-  <dialog class="country-modal" id="shibuya-modal" aria-labelledby="shibuya-modal-title">
+  <dialog class="country-modal" id="japan-card-modal" aria-labelledby="japan-card-modal-title">
     <header class="country-modal__header">
-      <p class="country-modal__context">Tokyo | 東京 - 밤이 더 환하게 빛나는 도시</p>
+      <p class="country-modal__context" hidden></p>
       <div class="country-modal__close-group">
         <kbd class="country-modal__shortcut" aria-hidden="true">ESC</kbd>
         <button class="country-modal__close" type="button" data-modal-close aria-label="모달 닫기" aria-keyshortcuts="Escape" autofocus>
@@ -73,21 +75,10 @@
     <div class="country-modal__content">
       <div class="country-modal__layout">
         <figure class="country-modal__visual">
-          <img class="country-modal__image" src="./assets/images/tokyo-crossing.png"
-            alt="높은 곳에서 바라본 시부야 스크램블 교차로와 주변 거리" loading="lazy" />
+          <img class="country-modal__image" alt="" />
         </figure>
         <div class="country-modal__details">
-          <p class="country-modal__eyebrow">TOKYO · SHIBUYA</p>
-          <h2 class="country-modal__title" id="shibuya-modal-title">시부야 스크램블 교차로</h2>
-          <p class="country-modal__lead">수많은 발걸음이 교차하는 순간,<br />도쿄의 일상이 하나의 풍경이 됩니다.</p>
-          <section class="country-modal__section">
-            <h3>장소 이야기</h3>
-            <p>사람들의 움직임과 건물을 채운 간판이 어우러지는 시부야의 거리. 교차로를 중심으로 펼쳐지는 도시의 활기를 만나보세요.</p>
-          </section>
-          <section class="country-modal__section">
-            <h3>사진 속 풍경</h3>
-            <p>높은 시선에서 담은 횡단보도의 선과 사람들의 흐름. 가까이 걸을 때와는 다른 거리의 표정을 보여줍니다.</p>
-          </section>
+          <h2 class="country-modal__title" id="japan-card-modal-title"></h2>
         </div>
       </div>
     </div>
