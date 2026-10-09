@@ -4,9 +4,25 @@
     translate 300ms ease, scale 300ms ease;
 }
 
-.country-photo-card > img {
+.country-photo-card > img,
+.country-photo-card__trigger > img {
   box-shadow: 0 18px 40px rgb(20 30 50 / 15%);
   transition: box-shadow 300ms ease;
+}
+
+.country-photo-card__trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.country-photo-card__trigger:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 6px;
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -15,14 +31,16 @@
     scale: 1.025;
   }
 
-  .country-photo-card:not(.is-pending):hover > img {
+  .country-photo-card:not(.is-pending):hover > img,
+  .country-photo-card:not(.is-pending):hover > .country-photo-card__trigger > img {
     box-shadow: 0 24px 48px rgb(20 30 50 / 22%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .country-photo-card,
-  .country-photo-card > img {
+  .country-photo-card > img,
+  .country-photo-card__trigger > img {
     transition: none;
   }
 }

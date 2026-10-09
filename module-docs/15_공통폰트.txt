@@ -1,0 +1,8 @@
+공통 폰트
+
+- shared/css/typography.css에서 Noto Sans KR 로딩과 --font-sans를 관리합니다.
+- shared/css/base.css가 typography.css를 불러오므로 모든 페이지의 기본 텍스트가 공통 폰트를 상속합니다.
+- 모달도 --font-sans를 사용합니다. 일본 인트로처럼 명시적으로 지정한 장식용 폰트는 유지합니다.
+- Google Fonts에서 400, 500, 600, 700 굵기를 로드하며 인터넷 연결이 필요합니다.
+- display=swap으로 폰트 준비 전에도 텍스트를 표시합니다. 네트워크가 불가능하면 시스템 대체 폰트를 사용합니다.
+- 지역 문구는 공통 폰트 모듈에 포함하지 않고 해당 국가 HTML에서 관리합니다.

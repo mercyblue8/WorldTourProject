@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "WorldTour: 첫 화면 (서버 없이)",
+            "file": "${workspaceFolder}/index.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "WorldTour: 일본 페이지 (서버 없이)",
+            "file": "${workspaceFolder}/pages/asia-countries/japan/index.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
