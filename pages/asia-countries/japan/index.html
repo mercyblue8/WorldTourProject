@@ -44,11 +44,17 @@
         <figcaption class="japan-photos__name">시부야-스크램블 교차로</figcaption>
       </figure>
       <figure class="japan-photos__item country-photo-card">
-        <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명 아래 사람들로 붐비는 클럽" loading="lazy" />
+        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shinjuku-warp"
+          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="신주쿠 클럽 워프 자세히 보기">
+          <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명 아래 사람들로 붐비는 클럽" loading="lazy" />
+        </button>
         <figcaption class="japan-photos__name">신주쿠-클럽 워프</figcaption>
       </figure>
       <figure class="japan-photos__item country-photo-card">
-        <img src="./assets/images/chiba-disneyland.jpg" alt="노을 속 디즈니랜드 성과 방문객들" loading="lazy" />
+        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="tokyo-disneyland"
+          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="도쿄 디즈니랜드 자세히 보기">
+          <img src="./assets/images/chiba-disneyland.jpg" alt="노을 속 디즈니랜드 성과 방문객들" loading="lazy" />
+        </button>
         <figcaption class="japan-photos__name">치바현-디즈니랜드</figcaption>
       </figure>
       <figure class="japan-photos__item country-photo-card">
@@ -63,6 +69,7 @@
   </main>
   <a class="country-back" href="../../continents/asia/index.html">Return</a>
   <dialog class="country-modal" id="japan-card-modal" aria-labelledby="japan-card-modal-title">
+    <div class="country-modal__panel">
     <header class="country-modal__header">
       <p class="country-modal__context" hidden></p>
       <div class="country-modal__close-group">
@@ -81,6 +88,7 @@
           <h2 class="country-modal__title" id="japan-card-modal-title"></h2>
         </div>
       </div>
+    </div>
     </div>
   </dialog>
 </body>

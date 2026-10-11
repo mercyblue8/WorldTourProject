@@ -24,6 +24,8 @@ function setup(reduced = true) {
     showModal() { this.open = true; },
     close() { this.open = false; this.emit('close'); },
     querySelectorAll: () => [button],
+    querySelector() { return this; },
+    clientWidth: 1000,
     getBoundingClientRect: () => ({ left: 100, right: 800, top: 50, bottom: 700 }),
   };
   const style = { position: '', top: '', left: '', width: '90%', overflow: '' };
@@ -90,7 +92,7 @@ test('modal locks scroll, ignores unrelated triggers and restores scroll/style/f
   assert.equal(s.dialog.open, true);
   assert.equal(s.style.position, 'fixed');
   assert.equal(s.style.top, '-850px');
-  assert.equal(s.page.style.overflowY, 'scroll');
+  assert.equal(s.page.style.overflowY, 'hidden');
   s.button.emit('click');
   assert.equal(s.dialog.open, false);
   assert.equal(s.style.position, '');
@@ -110,7 +112,7 @@ test('short pages do not gain a scrollbar when a modal opens', () => {
   const s = setup();
   s.page.scrollHeight = s.page.clientHeight;
   s.trigger.emit('click');
-  assert.equal(s.page.style.overflowY, 'auto');
+  assert.equal(s.page.style.overflowY, 'hidden');
   s.controller.close();
   assert.equal(s.page.style.overflowY, 'auto');
 });
@@ -120,6 +122,10 @@ test('only a gesture starting and ending on the backdrop closes the modal', () =
   const outside = { target: s.dialog, clientX: 10, clientY: 10 };
   const inside = { target: s.dialog, clientX: 300, clientY: 300 };
   s.trigger.emit('click');
+  const scrollbar = { target: s.dialog, clientX: 1001, clientY: 100 };
+  s.dialog.emit('pointerdown', scrollbar);
+  s.dialog.emit('click', scrollbar);
+  assert.equal(s.dialog.open, true);
   s.dialog.emit('pointerdown', inside);
   s.dialog.emit('click', outside);
   assert.equal(s.dialog.open, true);

@@ -56,19 +56,19 @@
       const page = document.documentElement;
       const x = window.scrollX, y = window.scrollY;
       const rootOverflowY = page.style.overflowY;
-      const hasScrollbar = page.scrollHeight > page.clientHeight;
       dialog.showModal();
       opener = trigger;
       saved = { x, y, styles, rootOverflowY };
-      // Fixing the body removes its scroll height. Keep the existing scrollbar
-      // track so the viewport and card layout retain their original width.
-      if (hasScrollbar) page.style.overflowY = 'scroll';
+      // The full-screen dialog owns the right-edge scrollbar while open.
+      page.style.overflowY = 'hidden';
+      dialog.scrollTop = 0;
       Object.assign(style, {
         position: 'fixed', top: `${-saved.y}px`, left: `${-saved.x}px`, width: '100%', overflow: 'hidden',
       });
     };
     const outside = event => {
-      const box = dialog.getBoundingClientRect();
+      const box = dialog.querySelector('.country-modal__panel').getBoundingClientRect();
+      if (event.clientX >= dialog.clientWidth) return false;
       return event.target === dialog && (event.clientX < box.left || event.clientX > box.right
         || event.clientY < box.top || event.clientY > box.bottom);
     };
