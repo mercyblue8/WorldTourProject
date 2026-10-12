@@ -37,7 +37,10 @@
 
     function activate(path) {
       if (destination) return;
+      if (path.getAttribute('aria-disabled') === 'true') return;
+      if (app.travelAvailability && !app.travelAvailability.continent(path.getAttribute('id')).available) return;
       destination = path.getAttribute('data-destination');
+      if (!destination) return;
       selected = path;
       const box = path.getBBox();
       const bounds = frame.getBoundingClientRect();
@@ -49,7 +52,7 @@
       frame.style.setProperty('--zoom-y', `${window.innerHeight / 2 - (bounds.top + bounds.height * y)}px`);
       selected.classList.add('is-selected');
       svg.setAttribute('aria-busy', 'true');
-      status.textContent = '아시아 지도로 이동합니다.';
+      status.textContent = `${path.getAttribute('data-travel-label') || '아시아'} 지도로 이동합니다.`;
       document.body.classList.add('continent-entering');
       timer = setTimeout(finish, reduced.matches ? 250 : 1750);
     }

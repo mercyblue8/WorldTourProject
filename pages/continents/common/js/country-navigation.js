@@ -40,6 +40,7 @@
       if (destination) return true;
       const next = destinations[id];
       if (!next) return false;
+      if (app.travelAvailability && !app.travelAvailability.country(id, next).available) return false;
       destination = next;
       activeNode = node;
       const box = node.getBBox();

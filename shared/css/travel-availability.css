@@ -1,0 +1,38 @@
+.continent[data-travel-available="false"]:hover,
+.continent[data-travel-available="false"]:focus-visible,
+.country-region[data-travel-available="false"]:hover .country-shape,
+.country-region[data-travel-available="false"]:focus-visible .country-shape {
+  fill: rgb(239 100 100 / 24%);
+  stroke: rgb(255 163 163 / 85%);
+  filter: drop-shadow(0 0 5px rgb(235 93 93 / 45%));
+}
+.country-region[data-travel-available="false"]:hover .country-marker,
+.country-region[data-travel-available="false"]:focus-visible .country-marker {
+  fill: #f29b9b;
+  filter: drop-shadow(0 0 5px rgb(235 93 93 / 45%));
+}
+.continent[data-travel-available="false"],
+.country-region[data-travel-available="false"] { cursor: not-allowed; }
+.travel-availability-status {
+  position: fixed;
+  top: max(28px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  margin: 0;
+  padding: 12px 22px;
+  border: 1px solid rgb(189 229 255 / 35%);
+  border-radius: 14px;
+  background: rgb(12 25 44 / 90%);
+  color: #e7f5ff;
+  text-align: center;
+  font-size: clamp(14px, 1.5vw, 20px);
+  line-height: 1.6;
+  pointer-events: none;
+}
+.travel-availability-status[data-travel-available="false"] { color: #ffc3c3; border-color: rgb(255 163 163 / 45%); }
+.travel-availability-status[hidden],
+.continent-entering .travel-availability-status { display: none; }

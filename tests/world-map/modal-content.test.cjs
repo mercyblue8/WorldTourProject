@@ -7,6 +7,9 @@ const root = path.resolve(__dirname, '../..');
 
 function setup() {
   const node = tag => ({ tag, children: [], textContent: '',
+    events: {},
+    addEventListener(key, handler) { this.events[key] = handler; },
+    style: { setProperty(key, value) { this[key] = value; } },
     setAttribute(key, value) { this[key] = value; },
     append(...children) { this.children.push(...children.flatMap(child => child.tag === '#fragment' ? child.children : [child])); },
     replaceChildren(...children) { this.children = []; this.append(...children); },
@@ -27,6 +30,29 @@ function setup() {
 }
 const flatten = node => [node, ...(node.children || []).flatMap(child => typeof child === 'string' ? [] : flatten(child))];
 
+test('gallery uses the first photo ratio and does not leak it into another card', () => {
+  const s = setup();
+  s.render(s.cards['tokyo-disneyland']);
+  const nodes = flatten(s.fields['.country-modal__details']);
+  const track = nodes.find(n => n.className === 'country-modal__gallery-track');
+  const photos = nodes.filter(n => n.className === 'country-modal__gallery-image');
+  assert.equal(photos[0].loading, 'eager');
+  photos[0].naturalWidth = 1280;
+  photos[0].naturalHeight = 853;
+  photos[0].events.load();
+  assert.equal(track.style['--gallery-image-ratio'], '1280 / 853');
+  assert.ok(photos.slice(1).every(photo => !photo.events.load));
+  s.render(s.cards['shibuya-sky']);
+  const nextNodes = flatten(s.fields['.country-modal__details']);
+  const nextTrack = nextNodes.find(n => n.className === 'country-modal__gallery-track');
+  assert.equal(nextTrack.style['--gallery-image-ratio'], undefined);
+  const first = nextNodes.find(n => n.className === 'country-modal__gallery-image');
+  first.naturalWidth = 1280;
+  first.naturalHeight = 960;
+  first.events.load();
+  assert.equal(nextTrack.style['--gallery-image-ratio'], '1280 / 960');
+});
+
 test('Disney gallery precedes descriptions and is cleaned up when returning to a normal card', () => {
   const s = setup();
   s.render(s.cards['tokyo-disneyland']);
@@ -40,8 +66,9 @@ test('Disney gallery precedes descriptions and is cleaned up when returning to a
   assert.equal(flatten(children[leadIndex]).filter(n => n.tag === 'img').length, 0);
   const galleryNodes = flatten(children[galleryIndex]);
   assert.equal(galleryNodes.filter(n => n.tag === 'img').length, 5);
-  assert.equal(galleryNodes.filter(n => n.tag === 'button').length, 2);
-  s.render(s.cards['shibuya-crossing']);
+  assert.equal(galleryNodes.filter(n => n.tag === 'button').length, 7);
+  assert.deepEqual(galleryNodes.filter(n => n.className === 'photo-navigation__page').map(n => n.textContent), ['1', '2', '3', '4', '5']);
+  s.render({ ...s.cards['shibuya-crossing'], layout: undefined });
   assert.equal(s.galleryDestroyed(), 1);
   assert.equal(s.classes.has('country-modal--gallery'), false);
   assert.equal(flatten(s.fields['.country-modal__details']).filter(n => n.className === 'country-modal__gallery').length, 0);
@@ -51,16 +78,16 @@ test('shared modal switches from Shibuya to WARP without stale sections and rese
   const s = setup();
   assert.equal(s.render(s.cards['shibuya-crossing']), true);
   let nodes = flatten(s.fields['.country-modal__details']);
-  assert.equal(nodes.filter(n => n.tag === 'section').length, 4);
+  assert.equal(nodes.filter(n => n.tag === 'section').length, 5);
   assert.equal(nodes.filter(n => n.tag === 'li').length, 11);
-  assert.equal(nodes.filter(n => n.tag === 'a').length, 4);
+  assert.equal(nodes.filter(n => n.tag === 'a').length, 5);
   assert.equal(nodes.find(n => n.tag === 'h2').id, 'modal-title');
   s.fields['.country-modal__content'].scrollTop = 500;
   assert.equal(s.render(s.cards['shinjuku-warp']), true);
   nodes = flatten(s.fields['.country-modal__details']);
   assert.equal(nodes.find(n => n.tag === 'h2').textContent, '신주쿠 클럽 워프');
-  assert.equal(nodes.filter(n => n.tag === 'section').length, 3);
-  assert.equal(nodes.filter(n => n.tag === 'a').length, 1);
+  assert.equal(nodes.filter(n => n.tag === 'section').length, 4);
+  assert.equal(nodes.filter(n => n.tag === 'a').length, 2);
   assert.equal(nodes.find(n => n.tag === 'a').href, 'https://warp-shinjuku.jp/');
   assert.equal(nodes.find(n => n.className === 'country-modal__lead').textContent, s.cards['shinjuku-warp'].lead);
   assert.equal(s.fields['.country-modal__image'].src, './assets/images/tokyo-nightlife.png');
@@ -90,9 +117,21 @@ test('every connected Japan card has data and an existing image', () => {
   const s = setup();
   const html = fs.readFileSync(path.join(root, 'pages/asia-countries/japan/index.html'), 'utf8');
   const ids = [...html.matchAll(/data-modal-card="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(ids, ['shibuya-crossing', 'shinjuku-warp', 'tokyo-disneyland']);
+  assert.deepEqual(ids, ['shibuya-crossing', 'shinjuku-warp', 'tokyo-disneyland', 'shibuya-sky']);
   for (const id of ids) {
     assert.ok(s.cards[id]);
+    assert.equal(s.cards[id].layout, 'gallery');
+    assert.equal(s.cards[id].images.length, 5);
+    assert.equal(new Set(s.cards[id].images.map(photo => photo.src)).size, 5);
+    const hashes = s.cards[id].images.map(photo => require('node:crypto').createHash('sha256')
+      .update(fs.readFileSync(path.resolve(root, 'pages/asia-countries/japan', photo.src))).digest('hex'));
+    assert.equal(new Set(hashes).size, 5, `${id} must contain five different photos`);
+    s.render(s.cards[id]);
+    const nodes = flatten(s.fields['.country-modal__details']);
+    assert.equal(nodes.filter(n => n.className === 'photo-navigation__page').length, 5);
+    for (const photo of s.cards[id].images) {
+      assert.ok(fs.existsSync(path.resolve(root, 'pages/asia-countries/japan', photo.src)));
+    }
     assert.ok(fs.existsSync(path.resolve(root, 'pages/asia-countries/japan', s.cards[id].image.src)));
   }
 });

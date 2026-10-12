@@ -3,12 +3,13 @@ window.WorldTour.japan.modalCards = {
   "tokyo-disneyland": {
     "layout": "gallery",
     "images": [
-      { "src": "./assets/images/chiba-disneyland.jpg", "alt": "노을 속 디즈니랜드 성과 방문객들" },
-      { "src": "./assets/images/chiba-disneyland.jpg", "alt": "노을 속 디즈니랜드 성과 방문객들" },
-      { "src": "./assets/images/chiba-disneyland.jpg", "alt": "노을 속 디즈니랜드 성과 방문객들" },
-      { "src": "./assets/images/chiba-disneyland.jpg", "alt": "노을 속 디즈니랜드 성과 방문객들" },
-      { "src": "./assets/images/chiba-disneyland.jpg", "alt": "노을 속 디즈니랜드 성과 방문객들" }
+      { "src": "./assets/images/gallery/disney-1.jpg", "alt": "푸른 하늘 아래 도쿄 디즈니랜드 신데렐라 성" },
+      { "src": "./assets/images/gallery/disney-2.jpg", "alt": "디즈니 캐릭터로 꾸며진 도쿄 디즈니랜드 장식" },
+      { "src": "./assets/images/gallery/disney-3.jpg", "alt": "도쿄 디즈니랜드 입구 주변을 지나는 모노레일" },
+      { "src": "./assets/images/gallery/disney-4.jpg", "alt": "유리 지붕 아래 상점이 이어지는 월드바자르" },
+      { "src": "./assets/images/gallery/disney-5.jpg", "alt": "밤을 밝히는 도쿄 디즈니랜드 일렉트리컬 퍼레이드" }
     ],
+    "photoCredits": "./photo-credits.html#disney",
     "context": "Tokyo | 東京 - 밤이 더 환하게 빛나는 도시",
     "eyebrow": "CHIBA · MAIHAMA",
     "title": "도쿄 디즈니랜드",
@@ -53,6 +54,15 @@ window.WorldTour.japan.modalCards = {
     ]
   },
   "shinjuku-warp": {
+    "layout": "gallery",
+    "images": [
+      { "src": "./assets/images/gallery/warp-1.jpg", "alt": "워프 신주쿠 유니버스 플로어" },
+      { "src": "./assets/images/gallery/warp-2.jpg", "alt": "파란 조명이 비치는 워프 신주쿠 VIP 좌석" },
+      { "src": "./assets/images/gallery/warp-3.jpg", "alt": "워프 신주쿠 바 메테오 공간" },
+      { "src": "./assets/images/gallery/warp-4.jpg", "alt": "워프 신주쿠 코스모 룸" },
+      { "src": "./assets/images/gallery/warp-5.jpg", "alt": "워프 신주쿠 포스 플로어" }
+    ],
+    "photoCredits": "./photo-credits.html#warp",
     "context": "Tokyo | 東京 - 밤이 더 환하게 빛나는 도시",
     "eyebrow": "TOKYO · SHINJUKU",
     "title": "신주쿠 클럽 워프",
@@ -97,6 +107,15 @@ window.WorldTour.japan.modalCards = {
     ]
   },
   "shibuya-crossing": {
+    "layout": "gallery",
+    "images": [
+      { "src": "./assets/images/gallery/crossing-1.jpg", "alt": "저녁 하늘 아래 시부야 교차로를 건너는 사람들" },
+      { "src": "./assets/images/gallery/crossing-2.jpg", "alt": "네온사인과 빌딩 사이 시부야 교차로의 야경" },
+      { "src": "./assets/images/gallery/crossing-3.jpg", "alt": "거리에서 바라본 시부야 스크램블 교차로" },
+      { "src": "./assets/images/gallery/crossing-4.jpg", "alt": "위에서 내려다본 밤의 시부야 교차로와 인파" },
+      { "src": "./assets/images/gallery/crossing-5.jpg", "alt": "시부야 횡단보도를 건너는 사람들과 주변 전광판" }
+    ],
+    "photoCredits": "./photo-credits.html#crossing",
     "context": "Tokyo | 東京 - 밤이 더 환하게 빛나는 도시",
     "eyebrow": "TOKYO · SHIBUYA",
     "title": "시부야 스크램블 교차로",
@@ -195,5 +214,26 @@ window.WorldTour.japan.modalCards = {
         ]
       }
     ]
+  },
+  "shibuya-sky": {
+    "layout": "gallery",
+    "images": [
+      { "src": "./assets/images/gallery/sky-1.jpg", "alt": "시부야스카이에서 바라본 도쿄타워와 고층 빌딩" },
+      { "src": "./assets/images/gallery/sky-2.jpg", "alt": "시부야스카이에서 바라본 도쿄의 석양" },
+      { "src": "./assets/images/gallery/sky-3.jpg", "alt": "시부야스카이에서 바라본 국립경기장과 도심" },
+      { "src": "./assets/images/gallery/sky-4.jpg", "alt": "시부야스카이에서 바라본 요요기공원과 신주쿠" },
+      { "src": "./assets/images/gallery/sky-5.jpg", "alt": "시부야스카이에서 넓게 내려다본 도쿄 시가지" }
+    ],
+    "photoCredits": "./photo-credits.html#sky",
+    "context": "Tokyo | 東京 - 밤이 더 환하게 빛나는 도시",
+    "eyebrow": "TOKYO · SHIBUYA",
+    "title": "시부야스카이",
+    "subtitle": "SHIBUYA SKY | 渋谷スカイ",
+    "lead": "전망대에서 내려다본 도쿄의 푸른 야경을 감상해 보세요.",
+    "image": {
+      "src": "./assets/images/shibuya-sky.jpg",
+      "alt": "전망대에서 내려다본 도쿄의 푸른 야경"
+    },
+    "sections": []
   }
 };

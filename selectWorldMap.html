@@ -11,9 +11,13 @@
   <link rel="stylesheet" href="./pages/world-map/css/page.css" />
   <link rel="stylesheet" href="./pages/world-map/css/continent.css" />
   <link rel="stylesheet" href="./pages/world-map/css/navigation.css" />
+  <link rel="stylesheet" href="./shared/css/travel-availability.css" />
+  <script src="./shared/data/travel-availability.js" defer></script>
+  <script src="./shared/js/travel-availability.js" defer></script>
   <script src="./shared/data/continents.js" defer></script>
   <script src="./pages/world-map/data/continents.js" defer></script>
   <script src="./pages/world-map/js/navigation.js" defer></script>
+  <script src="./pages/world-map/js/availability.js" defer></script>
   <script src="./shared/js/cursor.js" defer></script>
   <script src="./pages/world-map/js/main.js" defer></script>
   <link rel="stylesheet" href="./shared/css/cursor.css" />
@@ -33,6 +37,7 @@
     <img src="./pages/continents/asia/assets/map.png" width="1672" height="941" alt="" decoding="async" />
   </div>
   <p class="navigation-status" role="status"></p>
+  <p class="travel-availability-status" role="status" aria-live="polite" hidden></p>
 </body>
 
 </html>

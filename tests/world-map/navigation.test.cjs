@@ -62,6 +62,16 @@ test('Asia zooms toward its center and navigates once when the reveal completes'
   assert.equal(s.timers.size, 0);
 });
 
+test('a continent disabled in the shared config cannot start navigation', () => {
+  const s = setup();
+  s.window.WorldTour.travelAvailability = { continent: () => ({ available: false }) };
+  s.click();
+  s.svg.events.keydown({ target: s.path, key: 'Enter', preventDefault() {} });
+  s.finish();
+  assert.equal(s.timers.size, 0);
+  assert.deepEqual(s.visits, []);
+});
+
 test('Escape cancels navigation, restores focus and permits retry', () => {
   const s = setup();
   s.click();

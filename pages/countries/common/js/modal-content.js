@@ -27,6 +27,7 @@
     fragment.append(title);
     if (card.subtitle) fragment.append(element('p', 'country-modal__subtitle', card.subtitle));
     let viewport, controls;
+    const pageButtons = [];
     if (galleryLayout) {
       const gallery = element('section', 'country-modal__gallery');
       gallery.setAttribute('aria-label', `${card.title} 사진`);
@@ -38,9 +39,17 @@
       for (const photo of card.images?.length ? card.images : [card.image]) {
         const slide = element('figure', 'country-modal__slide');
         const picture = element('img', 'country-modal__gallery-image');
+        const firstPhoto = viewport.children.length === 0;
+        const setGalleryRatio = () => {
+          if (picture.naturalWidth > 0 && picture.naturalHeight > 0) {
+            viewport.style.setProperty('--gallery-image-ratio', `${picture.naturalWidth} / ${picture.naturalHeight}`);
+          }
+        };
+        if (firstPhoto) picture.addEventListener('load', setGalleryRatio, { once: true });
         picture.src = photo.src;
         picture.alt = photo.alt || '';
-        picture.loading = 'lazy';
+        picture.loading = firstPhoto ? 'eager' : 'lazy';
+        if (firstPhoto && picture.complete) setGalleryRatio();
         slide.append(picture);
         viewport.append(slide);
       }
@@ -48,6 +57,18 @@
       controls.setAttribute('role', 'group');
       controls.setAttribute('aria-label', '모달 사진 이동');
       for (const [direction, label] of [['prev', '이전 사진'], ['next', '다음 사진']]) {
+        if (direction === 'prev') {
+          const pages = element('div', 'photo-navigation__pages');
+          Array.from(viewport.children).forEach((_, index) => {
+            const page = element('button', 'photo-navigation__page', String(index + 1));
+            page.type = 'button';
+            page.setAttribute('aria-label', `${index + 1}번 사진으로 이동`);
+            page.setAttribute('aria-controls', viewport.id);
+            pages.append(page);
+            pageButtons.push(page);
+          });
+          controls.append(pages);
+        }
         const button = element('button', 'photo-navigation__button');
         button.type = 'button';
         button.setAttribute('data-direction', direction);
@@ -89,12 +110,22 @@
       block.append(list);
       description.append(block);
     }
+    if (card.photoCredits) {
+      const url = new URL(card.photoCredits, document.baseURI);
+      if (['https:', 'http:', 'file:'].includes(url.protocol)) {
+        const credit = element('a', 'country-modal__photo-credits', '사진 출처 및 이용 조건');
+        credit.href = url.href;
+        credit.target = '_blank';
+        credit.rel = 'noopener noreferrer';
+        description.append(credit);
+      }
+    }
     context.textContent = card.context || '';
     context.hidden = !card.context;
     image.src = card.image.src;
     image.alt = card.image.alt || '';
     details.replaceChildren(fragment);
-    if (viewport) galleries.set(dialog, app.createPhotoNavigation(viewport, controls));
+    if (viewport) galleries.set(dialog, app.createPhotoNavigation(viewport, controls, { pageButtons }));
     content.scrollTop = 0;
     dialog.scrollTop = 0;
     return true;

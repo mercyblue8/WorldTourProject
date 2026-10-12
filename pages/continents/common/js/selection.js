@@ -2,7 +2,7 @@
   const app = window.WorldTour = window.WorldTour || {};
   const namespace = 'http://www.w3.org/2000/svg';
 
-  app.createCountrySelection = (data, root = document, { onActivate = () => false } = {}) => {
+  app.createCountrySelection = (data, root = document, { onActivate = () => false, getAvailability } = {}) => {
     const svg = root.querySelector('.country-regions');
     const info = root.querySelector('.country-info');
     const name = root.querySelector('.country-info__name');
@@ -26,6 +26,12 @@
         tabindex: '0', role: 'button', 'aria-pressed': 'false',
         'aria-label': `${country.name} · ${country.label}`,
       });
+      if (getAvailability) {
+        const availability = getAvailability(country);
+        group.setAttribute('data-travel-available', String(availability.available));
+        group.setAttribute('aria-disabled', String(!availability.available));
+        group.setAttribute('aria-label', `${country.name} · ${country.label} — 여행 ${availability.available ? '가능' : '불가능'}`);
+      }
       if (country.marker) {
         const [cx, cy] = country.marker;
         group.append(
@@ -45,9 +51,15 @@
       info.hidden = !country;
       name.textContent = country ? `${country.name} · ${country.label}` : '';
       state.textContent = country ? (id === selected ? '선택됨' : '클릭하여 선택') : '';
+      if (country && getAvailability) state.textContent = getAvailability(country).available ? '여행 가능' : '현재 여행하실 수 없습니다.';
     }
 
     function choose(id) {
+      if (id && getAvailability && !getAvailability(countries.get(id)).available) {
+        show(id);
+        announcement.textContent = app.travelAvailability.message(countries.get(id).name, false);
+        return;
+      }
       if (id && onActivate(countries.get(id), nodes.get(id))) return;
       if (selected) nodes.get(selected).setAttribute('aria-pressed', 'false');
       selected = id === selected ? null : id;

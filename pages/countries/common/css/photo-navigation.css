@@ -5,6 +5,21 @@
   padding: 0 24px 80px;
 }
 .photo-navigation[hidden] { display: none; }
+.photo-navigation__pages { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; }
+.photo-navigation__page {
+  min-width: 32px;
+  min-height: 36px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 65%);
+  color: #34445a;
+  font: inherit;
+  cursor: pointer;
+}
+.photo-navigation__page:hover { background: #e2e8f0; }
+.photo-navigation__page[aria-current="true"] { background: #17212f; color: white; font-weight: 700; }
+.photo-navigation__page:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
 .photo-navigation__button {
   width: 44px;
   height: 44px;

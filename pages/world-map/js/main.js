@@ -14,9 +14,17 @@
         'aria-label': region.label, d: region.path,
       };
       const destination = app.continentPages?.[region.id];
-      if (destination) {
+      const availability = app.travelAvailability?.continent(region.id, destination);
+      if (availability) {
+        attributes['data-travel-available'] = String(availability.available);
+        attributes['data-travel-label'] = availability.label;
+        attributes['aria-label'] = app.travelAvailability.message(availability.label, availability.available);
+        attributes['aria-disabled'] = String(!availability.available);
+        attributes.role = 'button';
+      }
+      if (destination && (!availability || availability.available)) {
         attributes.role = 'link';
-        attributes['aria-label'] = `${destination.label} — 대륙 지도 열기`;
+        attributes['aria-label'] = `${availability?.label || destination.label} — 대륙 지도 열기`;
         attributes['data-destination'] = destination.href;
       }
       Object.entries(attributes).forEach(([name, value]) => path.setAttribute(name, value));
@@ -24,7 +32,9 @@
     });
     svg.replaceChildren(...regions);
     app.worldMapNavigation?.destroy();
+    app.worldMapAvailability?.destroy();
     if (app.createContinentNavigation) app.worldMapNavigation = app.createContinentNavigation(root);
+    if (app.createContinentAvailability) app.worldMapAvailability = app.createContinentAvailability(root);
   };
 
   app.initWorldMap();

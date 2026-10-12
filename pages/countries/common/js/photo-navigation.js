@@ -1,7 +1,7 @@
 (() => {
   const app = window.WorldTour = window.WorldTour || {};
   // The viewport's direct children are the cards; no country-specific selectors.
-  app.createPhotoNavigation = (viewport, controls, { duration = 650 } = {}) => {
+  app.createPhotoNavigation = (viewport, controls, { duration = 650, pageButtons = [] } = {}) => {
     if (!viewport || !controls) return;
     const previous = controls.querySelector('[data-direction="prev"]');
     const next = controls.querySelector('[data-direction="next"]');
@@ -14,18 +14,20 @@
       destination = viewport.scrollLeft;
     };
     const maximum = () => Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const stepSize = () => (viewport.firstElementChild?.getBoundingClientRect().width || 0)
+      + (parseFloat(getComputedStyle(viewport).columnGap) || 0);
+    // Distribute numbered selections across the real scroll range, without trailing blank space.
+    const pageStep = () => pageButtons.length > 1 ? maximum() / (pageButtons.length - 1) : 0;
     const sync = () => {
       const max = maximum();
       controls.hidden = max <= 1;
       previous.disabled = viewport.scrollLeft <= 1;
       next.disabled = viewport.scrollLeft >= max - 1;
+      const active = Math.max(0, Math.min(pageButtons.length - 1, Math.round(viewport.scrollLeft / (pageStep() || 1))));
+      pageButtons.forEach((button, index) => button.setAttribute('aria-current', index === active ? 'true' : 'false'));
     };
-    const move = direction => {
-      const card = viewport.firstElementChild;
-      if (!card) return;
-      const gap = parseFloat(getComputedStyle(viewport).columnGap) || 0;
-      const step = card.getBoundingClientRect().width + gap;
-      const left = Math.max(0, Math.min(maximum(), (frame !== null ? destination : viewport.scrollLeft) + direction * step));
+    const moveTo = target => {
+      const left = Math.max(0, Math.min(maximum(), target));
       cancel();
       destination = left;
       const from = viewport.scrollLeft;
@@ -46,6 +48,17 @@
       };
       frame = requestAnimationFrame(tick);
     };
+    const move = direction => {
+      if (!viewport.firstElementChild) return;
+      const from = frame !== null ? destination : viewport.scrollLeft;
+      const step = pageButtons.length ? pageStep() : stepSize();
+      moveTo(pageButtons.length ? (Math.round(from / (step || 1)) + direction) * step : from + direction * step);
+    };
+    const pageHandlers = pageButtons.map((button, index) => {
+      const handler = () => moveTo(index * pageStep());
+      button.addEventListener('click', handler);
+      return handler;
+    });
     const backward = () => { if (!previous.disabled) move(-1); };
     const forward = () => { if (!next.disabled) move(1); };
     previous.addEventListener('click', backward);
@@ -66,6 +79,7 @@
         resize.disconnect();
         previous.removeEventListener('click', backward);
         next.removeEventListener('click', forward);
+        pageButtons.forEach((button, index) => button.removeEventListener('click', pageHandlers[index]));
         viewport.removeEventListener('scroll', sync);
         interruptEvents.forEach(event => viewport.removeEventListener(event, cancel));
         window.removeEventListener('pagehide', cancel);

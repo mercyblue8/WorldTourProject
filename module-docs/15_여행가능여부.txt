@@ -1,0 +1,27 @@
+여행 가능 여부 관리
+
+설정: shared/data/travel-availability.js
+판정: shared/js/travel-availability.js
+공통 표시: shared/css/travel-availability.css
+세계지도 안내: pages/world-map/js/availability.js
+
+이 설정은 실제 여행 안전 등급이 아니라 사이트 콘텐츠의 이용 가능 여부입니다.
+대륙 7개와 현재 아시아 지도에 있는 국가 50개를 명시합니다.
+초기값: 아시아와 일본만 available: true. 나머지는 false.
+
+대륙 설정 키는 asia, europe, africa, north-america, south-america, oceania, antarctica입니다.
+국가 설정 키는 지도 데이터의 국가 코드(JP, KR 등)입니다.
+available을 true/false로 바꾼 뒤 페이지를 새로고침하면 적용됩니다.
+국가는 continent로 상위 대륙을 지정합니다. 상위 대륙이 false면 국가도 불가능합니다.
+등록되지 않은 항목은 기본적으로 불가능합니다.
+
+가능으로 설정할 때는 연결 페이지도 필요합니다.
+- 대륙 경로: shared/data/continents.js의 continentPages
+- 국가 경로: 각 대륙 data/destinations.js
+페이지 연결이 없으면 true로 설정해도 이동 가능한 것으로 표시하지 않습니다.
+새 대륙의 전환 이미지도 해당 페이지에 맞게 연결해야 합니다.
+
+세계지도에서 호버/키보드 포커스 시 상단 중앙에 가능 여부를 표시합니다.
+불가능한 대륙/국가는 기존 효과 대신 옅은 붉은색을 표시하며 이동을 차단합니다.
+가능한 항목의 기존 호버 효과와 이동 애니메이션은 유지합니다.
+아시아 국가 지도는 기존 국가 정보 패널에도 가능 여부를 표시합니다.
