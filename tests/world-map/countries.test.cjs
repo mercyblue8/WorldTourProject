@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function setup() {
+function setup(options = {}) {
   const window = {};
   const makeNode = () => ({
     attributes: {}, children: [], events: {}, hidden: false, textContent: '',
@@ -22,7 +22,7 @@ function setup() {
     vm.runInContext(fs.readFileSync(require.resolve(file), 'utf8'), context);
   }
   const data = window.WorldTour.asia.countries;
-  const controller = window.WorldTour.createCountrySelection(data);
+  const controller = window.WorldTour.createCountrySelection(data, document, options);
   const svg = nodes['.country-regions'];
   const country = id => svg.children.find(node => node.getAttribute('data-country') === id);
   return { nodes, data, controller, svg, country };
@@ -40,6 +40,40 @@ test('countries render as named keyboard buttons and microstates have markers', 
   }
   assert.equal(s.country('SG').children.length, 2);
   assert.equal(s.country('KR').children.length, 1);
+});
+
+test('search highlights shapes and markers without selecting, and preserves existing selection', () => {
+  const s = setup();
+  s.svg.events.click({ target: s.country('JP') });
+  s.controller.highlightCountries(['KR', 'SG']);
+  assert.equal(s.country('KR').getAttribute('data-search-match'), 'true');
+  assert.equal(s.country('SG').getAttribute('data-search-match'), 'true');
+  assert.equal(s.country('JP').getAttribute('data-search-match'), 'false');
+  assert.equal(s.controller.selectedCountry, 'JP');
+  assert.equal(s.country('KR').getAttribute('aria-pressed'), 'false');
+  s.controller.highlightCountries([]);
+  assert.equal(s.country('KR').getAttribute('data-search-match'), 'false');
+  assert.equal(s.controller.selectedCountry, 'JP');
+});
+
+test('search shares hover country info and availability, restoring it after pointer leaves', () => {
+  const s = setup({ getAvailability: country => ({ available: country.id === 'JP' }) });
+  s.controller.highlightCountries(['JP']);
+  assert.equal(s.nodes['.country-info'].hidden, false);
+  assert.match(s.nodes['.country-info__name'].textContent, /일본/);
+  assert.equal(s.nodes['.country-info__state'].textContent, '여행 가능');
+  s.svg.events.pointerover({ target: s.country('KR') });
+  assert.match(s.nodes['.country-info__name'].textContent, /대한민국/);
+  assert.equal(s.nodes['.country-info__state'].textContent, '현재 여행하실 수 없습니다.');
+  s.svg.events.pointerleave();
+  assert.match(s.nodes['.country-info__name'].textContent, /일본/);
+  s.controller.highlightCountries(['KR']);
+  assert.equal(s.nodes['.country-info__state'].textContent, '현재 여행하실 수 없습니다.');
+  s.controller.highlightCountries(['KR', 'JP']);
+  assert.equal(s.nodes['.country-info'].hidden, true);
+  s.controller.highlightCountries([]);
+  assert.equal(s.nodes['.country-info'].hidden, true);
+  assert.equal(s.controller.selectedCountry, null);
 });
 
 test('hover previews a name; click persists selection and switches exclusively', () => {

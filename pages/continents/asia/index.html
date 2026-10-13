@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../common/css/layout.css" />
   <link rel="stylesheet" href="../common/css/return-transition.css" />
   <link rel="stylesheet" href="../common/css/country.css" />
+  <link rel="stylesheet" href="../common/css/country-search.css" />
   <link rel="stylesheet" href="../../countries/common/css/country-return.css" />
   <link rel="stylesheet" href="../common/css/country-navigation.css" />
   <link rel="stylesheet" href="./css/page.css" />
@@ -21,6 +22,7 @@
   <script src="./data/destinations.js" defer></script>
   <script src="../common/js/country-navigation.js" defer></script>
   <script src="../common/js/selection.js" defer></script>
+  <script src="../common/js/country-search.js" defer></script>
   <script src="../common/js/return-transition.js" defer></script>
   <script src="../../../shared/js/cursor.js" defer></script>
   <script src="./js/main.js" defer></script>
@@ -35,6 +37,13 @@
         role="group" aria-label="아시아 국가 선택"></svg>
     </div>
   </main>
+  <form class="country-search" role="search" aria-label="지도에서 국가 찾기">
+    <label class="country-search__label" for="country-search-input">여행하실 국가를 검색 해주세요</label>
+    <input class="country-search__input" id="country-search-input" type="search"
+      placeholder="국가명 입력 (한글 / English)" autocomplete="off" spellcheck="false"
+      aria-controls="country-search-status" />
+    <p class="country-search__status" id="country-search-status" role="status" aria-live="polite" hidden></p>
+  </form>
   <div class="country-info" hidden>
     <span class="country-info__name"></span>
     <span class="country-info__state"></span>

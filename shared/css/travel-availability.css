@@ -1,12 +1,14 @@
 .continent[data-travel-available="false"]:hover,
 .continent[data-travel-available="false"]:focus-visible,
 .country-region[data-travel-available="false"]:hover .country-shape,
+.country-region[data-travel-available="false"][data-search-match="true"] .country-shape,
 .country-region[data-travel-available="false"]:focus-visible .country-shape {
   fill: rgb(239 100 100 / 24%);
   stroke: rgb(255 163 163 / 85%);
   filter: drop-shadow(0 0 5px rgb(235 93 93 / 45%));
 }
 .country-region[data-travel-available="false"]:hover .country-marker,
+.country-region[data-travel-available="false"][data-search-match="true"] .country-marker,
 .country-region[data-travel-available="false"]:focus-visible .country-marker {
   fill: #f29b9b;
   filter: drop-shadow(0 0 5px rgb(235 93 93 / 45%));

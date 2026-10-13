@@ -21,6 +21,7 @@
 }
 
 .country-region:hover .country-shape,
+.country-region[data-search-match="true"] .country-shape,
 .country-region:focus-visible .country-shape {
   fill: rgb(183 229 255 / 26%);
   stroke: rgb(205 241 255 / 85%);
@@ -38,6 +39,7 @@
 .country-marker { fill: #97cce9; stroke: #0c192c; stroke-width: 1; pointer-events: none; }
 .country-marker-hit { fill: transparent; pointer-events: all; }
 .country-region:hover .country-marker,
+.country-region[data-search-match="true"] .country-marker,
 .country-region:focus-visible .country-marker,
 .country-region[aria-pressed="true"] .country-marker {
   fill: #fff;

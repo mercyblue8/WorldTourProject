@@ -12,6 +12,9 @@
     const nodes = new Map();
     const listeners = [];
     let selected = null;
+    let hovered = null;
+    let focused = null;
+    let searched = null;
 
     function element(tag, attributes) {
       const node = document.createElementNS(namespace, tag);
@@ -54,6 +57,10 @@
       if (country && getAvailability) state.textContent = getAvailability(country).available ? '여행 가능' : '현재 여행하실 수 없습니다.';
     }
 
+    function showPreview() {
+      show(hovered || focused || searched || selected);
+    }
+
     function choose(id) {
       if (id && getAvailability && !getAvailability(countries.get(id)).available) {
         show(id);
@@ -76,10 +83,10 @@
       svg.addEventListener(name, handler);
       listeners.push(() => svg.removeEventListener(name, handler));
     }
-    on('pointerover', event => show(getCountry(event) || selected));
-    on('pointerleave', () => show(selected));
-    on('focusin', event => show(getCountry(event) || selected));
-    on('focusout', () => show(selected));
+    on('pointerover', event => { hovered = getCountry(event) || null; showPreview(); });
+    on('pointerleave', () => { hovered = null; showPreview(); });
+    on('focusin', event => { focused = getCountry(event) || null; showPreview(); });
+    on('focusout', () => { focused = null; showPreview(); });
     on('click', event => {
       const id = getCountry(event);
       if (id) choose(id);
@@ -96,11 +103,19 @@
     });
 
     return {
+      highlightCountries(ids) {
+        const matches = new Set(ids.filter(id => countries.has(id)));
+        nodes.forEach((node, id) => node.setAttribute('data-search-match', String(matches.has(id))));
+        // A single match can use the same country/availability preview as hover.
+        searched = matches.size === 1 ? matches.values().next().value : null;
+        showPreview();
+      },
       get selectedCountry() { return selected; },
       destroy() {
         listeners.forEach(remove => remove());
         svg.replaceChildren();
         selected = null;
+        hovered = focused = searched = null;
         show(null);
       },
     };

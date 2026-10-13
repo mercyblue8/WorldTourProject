@@ -3,6 +3,7 @@
   app.asia = app.asia || {};
   app.asia.config = {
     id: 'asia',
+    searchAliases: { KR: ['한국', '남한', 'South Korea'] },
     title: 'World Tour | Asia',
     worldMapHref: '../../../selectWorldMap.html',
     // Center of Asia's SVG bounds in the 1672 × 941 world-map coordinate system.
