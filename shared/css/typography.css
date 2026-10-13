@@ -1,5 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'ChosunSg';
+  src: url('../fonts/chosun-sg/ChosunSg.TTF') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Abhaya Libre';
+  src: url('../fonts/abhaya-libre/AbhayaLibre-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
   --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+  --font-chosun-sg: 'ChosunSg', var(--font-sans);
+  --font-abhaya-libre: 'Abhaya Libre', Georgia, serif;
 }

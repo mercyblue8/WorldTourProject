@@ -40,7 +40,11 @@ WorldTour/
 │       └── data/continents.js
 ├── shared/
 │   ├── css/base.css
+│   ├── css/typography.css
 │   ├── css/tokens.css
+│   ├── fonts/
+│   │   ├── chosun-sg/ChosunSg.TTF
+│   │   └── abhaya-libre/     # 폰트 파일과 OFL.txt
 │   └── images/world-map-dark-en.png
 ├── scripts/build-map-regions.py
 ├── tests/
@@ -58,6 +62,7 @@ WorldTour/
 
 - HTML은 구조와 자원 연결을 담당합니다. 각 페이지는 필요한 CSS/JS만 불러옵니다.
 - `shared/css`는 기본 스타일과 공통 색상을 제공합니다. 그 뒤 페이지 CSS를 불러옵니다.
+- `shared/fonts`는 로컬 폰트 파일을, `shared/css/typography.css`는 폰트 등록과 공통 변수를 관리합니다. 적용할 요소는 각 페이지 CSS에서 지정합니다. 자세한 사용법은 `module-docs/15_공통폰트.txt`를 참고하세요.
 - `landing/main.js`가 배경 재생과 전환 모듈을 초기화하고 연결합니다.
 - `createBackgroundVideo()`는 `play()`, `pause()`, `destroy()`를 제공합니다.
 - `createTransition()`은 `onStart`, `onRestore`, `navigate`를 주입받고 `isBusy`, `destroy()`를 제공합니다.

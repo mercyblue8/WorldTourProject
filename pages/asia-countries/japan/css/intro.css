@@ -1,11 +1,3 @@
-@font-face {
-  font-family: 'Abhaya Libre';
-  src: url('../../../../shared/fonts/abhaya-libre/AbhayaLibre-Medium.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
 .japan-intro {
   position: absolute;
   top: 34%;
@@ -14,7 +6,7 @@
   margin: 0;
   padding: 0;
   color: #21234d;
-  font-family: 'Abhaya Libre', Georgia, serif;
+  font-family: var(--font-abhaya-libre);
   font-weight: 500;
   /* 180px on the 3840px reference canvas; scales to smaller screens. */
   font-size: min(180px, 4.6875vw);
