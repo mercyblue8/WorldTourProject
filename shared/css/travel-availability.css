@@ -23,13 +23,13 @@
   width: max-content;
   max-width: calc(100% - 32px);
   margin: 0;
-  padding: 12px 22px;
+  padding: 8px 18px;
   border: 1px solid rgb(189 229 255 / 35%);
   border-radius: 14px;
   background: rgb(12 25 44 / 90%);
   color: #e7f5ff;
   text-align: center;
-  font-size: clamp(14px, 1.5vw, 20px);
+  font-size: clamp(8px, 1.5vw, 14px);
   line-height: 1.6;
   pointer-events: none;
 }

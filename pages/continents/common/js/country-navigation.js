@@ -9,12 +9,42 @@
     let destination = null;
     let activeNode = null;
     let timer;
+    let previewTimer;
     let navigated = false;
     let generation = 0;
-    const preview = overlay.querySelector('.tokyo-hero__image');
-    // Decode before revealing the preview; a cached file may still need decoding.
-    const previewReady = preview?.decode ? preview.decode().catch(() => {}) : null;
+    const preview = overlay.querySelector('.country-portal__image');
+    const content = overlay.querySelector('.country-portal__content');
     const listeners = [];
+
+    function clearPreview() {
+      preview.hidden = true;
+      preview.removeAttribute('src');
+      preview.style.objectPosition = 'center';
+      overlay.style.removeProperty('--preview-background');
+      content.hidden = false;
+    }
+
+    function preparePreview(settings, current, start) {
+      clearPreview();
+      if (!settings?.src || !preview.decode) { start(); return; }
+      preview.style.objectPosition = settings.position || 'center';
+      overlay.style.setProperty('--preview-background', settings.background || '#101413');
+      preview.src = settings.src;
+      let settled = false;
+      const ready = success => {
+        if (settled || current !== generation || !destination) return;
+        settled = true;
+        clearTimeout(previewTimer);
+        if (success) {
+          preview.hidden = false;
+          content.hidden = true;
+        } else clearPreview();
+        start();
+      };
+      // A slow or broken image must not block navigation indefinitely.
+      previewTimer = setTimeout(() => ready(false), 2000);
+      preview.decode().then(() => ready(true), () => ready(false));
+    }
 
     function on(target, event, handler) {
       target.addEventListener(event, handler);
@@ -23,6 +53,8 @@
     function reset() {
       generation++;
       clearTimeout(timer);
+      clearTimeout(previewTimer);
+      clearPreview();
       destination = null;
       navigated = false;
       document.body.classList.remove('country-entering');
@@ -52,9 +84,9 @@
       frame.style.setProperty('--country-x', `${window.innerWidth / 2 - (bounds.left + bounds.width * x)}px`);
       frame.style.setProperty('--country-y', `${window.innerHeight / 2 - (bounds.top + bounds.height * y)}px`);
       for (const [selector, text] of [
-        ['.country-hero__title', next.title],
-        ['.country-hero__name', next.name],
-        ['.country-hero__eyebrow', next.eyebrow],
+        ['.country-portal__title', next.title || next.name],
+        ['.country-portal__name', next.name],
+        ['.country-portal__eyebrow', next.eyebrow || ''],
       ]) {
         const field = overlay.querySelector(selector);
         if (field) field.textContent = text;
@@ -69,8 +101,7 @@
         document.body.classList.add('country-entering');
         timer = setTimeout(finish, reduced.matches ? 250 : 1650);
       };
-      if (previewReady) previewReady.then(start);
-      else start();
+      preparePreview(next.preview, current, start);
       return true;
     }
     on(overlay, 'animationend', event => {

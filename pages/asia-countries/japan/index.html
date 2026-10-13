@@ -15,11 +15,12 @@
   <link rel="stylesheet" href="../../countries/common/css/photo-card.css" />
   <link rel="stylesheet" href="../../countries/common/css/modal.css" />
   <link rel="stylesheet" href="../../countries/common/css/photo-navigation.css" />
+  <link rel="stylesheet" href="../../countries/common/css/city-section.css" />
   <link rel="stylesheet" href="../../countries/common/css/country-return.css" />
   <script src="./data/config.js" defer></script>
   <script src="./data/modal-cards.js" defer></script>
   <script src="./js/intro.js" defer></script>
-  <script src="./js/photo-reveal.js" defer></script>
+  <script src="../../countries/common/js/city-section-reveal.js" defer></script>
   <script src="../../countries/common/js/photo-navigation.js" defer></script>
   <script src="../../countries/common/js/country-return.js" defer></script>
   <script src="../../countries/common/js/modal-content.js" defer></script>
@@ -35,40 +36,43 @@
         alt="벚꽃과 후지산, 가와구치호 풍경 위에 こんにちは와 Japan | 日本 문구가 표시된 일본 첫 화면" fetchpriority="high" decoding="sync" />
       <h1 class="japan-intro" aria-label="Japan | Tradition Meets Culture" hidden>Japan | Tradition Meets Culture</h1>
     </section>
-    <section id="japan-photos" class="japan-photos" tabindex="0" aria-label="일본의 거리와 밤 풍경, 가로 스크롤로 사진 탐색">
-      <figure class="japan-photos__item country-photo-card">
-        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shibuya-crossing"
-          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="시부야 스크램블 교차로 자세히 보기">
-          <img src="./assets/images/tokyo-crossing.png" alt="높은 곳에서 바라본 스크램블 교차로와 거리" loading="lazy" />
-        </button>
-        <figcaption class="japan-photos__name">시부야-스크램블 교차로</figcaption>
-      </figure>
-      <figure class="japan-photos__item country-photo-card">
-        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shinjuku-warp"
-          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="신주쿠 클럽 워프 자세히 보기">
-          <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명 아래 사람들로 붐비는 클럽" loading="lazy" />
-        </button>
-        <figcaption class="japan-photos__name">신주쿠-클럽 워프</figcaption>
-      </figure>
-      <figure class="japan-photos__item country-photo-card">
-        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="tokyo-disneyland"
-          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="도쿄 디즈니랜드 자세히 보기">
-          <img src="./assets/images/chiba-disneyland.jpg" alt="노을 속 디즈니랜드 성과 방문객들" loading="lazy" />
-        </button>
-        <figcaption class="japan-photos__name">치바현-디즈니랜드</figcaption>
-      </figure>
-      <figure class="japan-photos__item country-photo-card">
-        <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shibuya-sky"
-          aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="시부야스카이 자세히 보기">
-          <img src="./assets/images/shibuya-sky.jpg" alt="전망대에서 내려다본 도쿄의 푸른 야경" loading="lazy" />
-        </button>
-        <figcaption class="japan-photos__name">시부야 - 시부야스카이</figcaption>
-      </figure>
+    <section id="TokyoSection" class="city-section" aria-labelledby="tokyo-section-title">
+      <h2 id="tokyo-section-title" class="city-section__title">Tokyo | 東京- 밤이 더 환하게 빛나는 도시</h2>
+      <div id="japan-photos" class="japan-photos" data-city-section-cards tabindex="0" role="region" aria-label="도쿄의 거리와 밤 풍경, 가로 스크롤로 사진 탐색">
+        <figure class="japan-photos__item country-photo-card">
+          <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shibuya-crossing"
+            aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="시부야 스크램블 교차로 자세히 보기">
+            <img src="./assets/images/tokyo-crossing.png" alt="높은 곳에서 바라본 스크램블 교차로와 거리" loading="lazy" />
+          </button>
+          <figcaption class="japan-photos__name">시부야-스크램블 교차로</figcaption>
+        </figure>
+        <figure class="japan-photos__item country-photo-card">
+          <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shinjuku-warp"
+            aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="신주쿠 클럽 워프 자세히 보기">
+            <img src="./assets/images/tokyo-nightlife.png" alt="화려한 조명 아래 사람들로 붐비는 클럽" loading="lazy" />
+          </button>
+          <figcaption class="japan-photos__name">신주쿠-클럽 워프</figcaption>
+        </figure>
+        <figure class="japan-photos__item country-photo-card">
+          <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="tokyo-disneyland"
+            aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="도쿄 디즈니랜드 자세히 보기">
+            <img src="./assets/images/chiba-disneyland.jpg" alt="노을 속 디즈니랜드 성과 방문객들" loading="lazy" />
+          </button>
+          <figcaption class="japan-photos__name">치바현-디즈니랜드</figcaption>
+        </figure>
+        <figure class="japan-photos__item country-photo-card">
+          <button class="country-photo-card__trigger" type="button" data-country-modal="japan-card-modal" data-modal-card="shibuya-sky"
+            aria-haspopup="dialog" aria-controls="japan-card-modal" aria-label="시부야스카이 자세히 보기">
+            <img src="./assets/images/shibuya-sky.jpg" alt="전망대에서 내려다본 도쿄의 푸른 야경" loading="lazy" />
+          </button>
+          <figcaption class="japan-photos__name">시부야 - 시부야스카이</figcaption>
+        </figure>
+      </div>
+      <div class="photo-navigation" role="group" aria-label="사진 이동" hidden>
+        <button class="photo-navigation__button" data-direction="prev" type="button" aria-label="이전 사진" aria-controls="japan-photos"></button>
+        <button class="photo-navigation__button" data-direction="next" type="button" aria-label="다음 사진" aria-controls="japan-photos"></button>
+      </div>
     </section>
-    <div class="photo-navigation" role="group" aria-label="사진 이동" hidden>
-      <button class="photo-navigation__button" data-direction="prev" type="button" aria-label="이전 사진" aria-controls="japan-photos"></button>
-      <button class="photo-navigation__button" data-direction="next" type="button" aria-label="다음 사진" aria-controls="japan-photos"></button>
-    </div>
   </main>
   <a class="country-back" href="../../continents/asia/index.html">Return</a>
   <dialog class="country-modal" id="japan-card-modal" aria-labelledby="japan-card-modal-title">

@@ -1,0 +1,27 @@
+국가별 도시 섹션
+
+공통 스타일: pages/countries/common/css/city-section.css
+도시 이름·문구·카드·섹션 ID는 각 국가 페이지에서 관리합니다.
+공통 등장 효과: pages/countries/common/js/city-section-reveal.js
+카드 목록에 data-city-section-cards를 지정하고 initCitySectionReveal()을 호출합니다.
+카드 목록이 화면에 15% 들어오면 제목과 카드가 함께 한 번만 등장합니다.
+제목은 카드와 같은 1100ms 페이드 및 36px 상승 효과를 사용합니다.
+동작 줄이기 설정이나 IntersectionObserver 미지원 환경에서는 바로 표시합니다.
+
+사용 구조:
+<section id="TokyoSection" class="city-section" aria-labelledby="tokyo-section-title">
+  <h2 id="tokyo-section-title" class="city-section__title">도시 소개 문구</h2>
+  <!-- 카드 목록 -->
+  <div class="photo-navigation">...</div>
+</section>
+
+기본 섹션 여백: 상단 200px, 하단 300px.
+제목은 왼쪽 정렬이며 반응형 글자 크기와 붉은색을 적용합니다.
+사진 이동 버튼의 기존 하단 80px는 섹션 안에서 제거하여 하단 여백이 중복되지 않게 합니다.
+카드 목록의 상단 32px는 확대/호버 시 그림자와 모서리가 잘리지 않도록 남겨 둡니다.
+
+다른 국가 페이지에서 공통 CSS를 불러오고 같은 구조를 사용합니다.
+필요 시 해당 섹션에서 아래 CSS 변수를 재정의할 수 있습니다.
+--city-section-space-top
+--city-section-space-bottom
+--city-section-title-color

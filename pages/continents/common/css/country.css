@@ -49,10 +49,6 @@
   right: max(20px, env(safe-area-inset-right));
   bottom: max(20px, env(safe-area-inset-bottom));
   max-width: calc(100vw - 40px);
-  padding: 10px 16px;
-  border: 1px solid #bde5ff55;
-  border-radius: 12px;
-  background: #0c192ce8;
   color: #e7f5ff;
   font-size: 14px;
   pointer-events: none;

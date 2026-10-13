@@ -6,6 +6,32 @@
   visibility: hidden;
   pointer-events: none;
 }
+.country-portal__preview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--preview-background, #101413);
+  color: #edf6ff;
+  text-align: center;
+}
+.country-portal__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.country-portal__image[hidden],
+.country-portal__content[hidden] { display: none; }
+.country-portal__content { padding: 24px; }
+.country-portal__eyebrow { margin: 0 0 20px; font-size: 12px; letter-spacing: .35em; }
+.country-portal__title { margin: 0; font-size: clamp(64px, 11vw, 160px); font-weight: 300; line-height: 1.15; }
+.country-portal__name { margin: 20px 0 0; font-size: 16px; letter-spacing: .4em; }
 .country-entering .continent-page__frame {
   transform-origin: var(--country-origin);
   animation: country-dive 1400ms cubic-bezier(.55, .04, .25, 1) both;

@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'ChosunSg';
+  src: url('../assets/fonts/ChosunSg.TTF') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+#tokyo-section-title {
+  font-family: 'ChosunSg', var(--font-sans);
+  font-weight: 400;
+}
+
 html {
   overflow-x: clip;
 }
@@ -6,19 +19,3 @@ body {
   background: #fff;
   overflow-x: clip;
 }
-
-.city-section {
-  min-height: 100vh;
-  padding: clamp(24px, 3vw, 56px) 0 clamp(100px, 14vh, 180px);
-  background: #fff;
-}
-
-.city-section h2 {
-  margin: 0 0 clamp(40px, 5vw, 100px);
-  color: #13bd57;
-  text-align: center;
-  font-size: clamp(28px, 3.1vw, 52px);
-  font-weight: 400;
-  line-height: 1.3;
-}
-

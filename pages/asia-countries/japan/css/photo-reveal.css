@@ -10,7 +10,7 @@
   /* Both edges remain visible; the initial left spacing scrolls with the cards. */
   width: 100%;
   margin-inline: 0;
-  padding: 200px clamp(24px, 5vw, 80px) 40px;
+  padding: 32px clamp(24px, 5vw, 80px) 40px;
   padding-left: calc(max(0px, 50% - 800px) + clamp(24px, 5vw, 80px));
 }
 

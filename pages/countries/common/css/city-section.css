@@ -1,0 +1,29 @@
+/* Shared city sections for country pages. Content and IDs stay in each page. */
+.city-section {
+  --city-section-space-top: 32px;
+  --city-section-space-bottom: 150px;
+  --city-section-title-color: #ad6664;
+  padding-block: var(--city-section-space-top) var(--city-section-space-bottom);
+  background: #e9d7d788;
+}
+
+.city-section__title {
+  margin: 0 0 32px;
+  padding-inline: clamp(24px, 3vw, 64px);
+  color: var(--city-section-title-color);
+  text-align: left;
+  font-size: clamp(26px, 3vw, 52px);
+  font-weight: 400;
+  line-height: 1.4;
+  transition: opacity 1100ms ease, transform 1100ms cubic-bezier(.2, .65, .3, 1);
+}
+
+.city-section__title.is-pending { opacity: 0; transform: translateY(36px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .city-section__title { transition: none; }
+  .city-section__title.is-pending { opacity: 1; transform: none; }
+}
+
+/* Section padding owns the bottom spacing, including when navigation is hidden. */
+.city-section > .photo-navigation { padding-bottom: 0; }

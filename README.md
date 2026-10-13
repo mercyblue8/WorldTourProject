@@ -171,6 +171,8 @@ Ctrl/Command 클릭과 새 탭 열기는 일반 링크 동작을 유지합니다
 원본 이미지 수정 없이 `python scripts/build-asia-regions.py`로 재생성할 수 있습니다.
 Python, Pillow, NumPy가 필요하며 기존 build-map-regions.py의 윤곽 함수를 재사용합니다.
 
+리팩토링 이유와 변경·검증 이력은 [리팩토링 기록](module-docs/REFACTORING.md)에 누적합니다.
+
 ### 일본 페이지 진입
 
 아시아 지도에서 Japan 클릭 또는 Enter/Space로 일본 위치를 향해 약 1.4초 확대하며
@@ -181,7 +183,7 @@ Python, Pillow, NumPy가 필요하며 기존 build-map-regions.py의 윤곽 함�
 - 목적지: `pages/continents/asia/data/destinations.js`
 - 공통 진입: `pages/continents/common/js/country-navigation.js`
 - 진입 효과: `pages/continents/common/css/country-navigation.css`
-- 국가 첫 화면 스타일: `pages/countries/common/css/hero.css`
+- 전환 미리보기: `destinations.js`의 `preview` 설정과 공통 `country-navigation.css`
 - 일본 화면: `pages/asia-countries/japan/` 아래 HTML, CSS, JS, data
 - 테스트: `tests/world-map/country-navigation.test.cjs`
 

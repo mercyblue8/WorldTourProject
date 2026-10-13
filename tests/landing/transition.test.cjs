@@ -68,6 +68,37 @@ test('Escape cancels pending navigation and allows another GO', async () => {
   assert.equal(s.visits.length, 1);
 });
 
+test('map arrival pauses the film and ignores duplicate completion before and after navigation', async () => {
+  const s = setup();
+  let pauses = 0;
+  s.elements['.loading-film'].pause = () => { pauses++; };
+  await s.start();
+  s.end();
+  const [timerId] = s.timers.keys();
+  s.end();
+  assert.equal(pauses, 1);
+  assert.deepEqual([...s.timers.keys()], [timerId]);
+  s.finish();
+  s.end(); s.finish();
+  assert.equal(s.timers.size, 0);
+  assert.deepEqual(s.visits, ['./selectWorldMap.html']);
+});
+
+test('late play completion or media error cannot interrupt map arrival', async () => {
+  const s = setup();
+  let resolvePlay;
+  s.elements['.loading-film'].play = () => new Promise(resolve => { resolvePlay = resolve; });
+  const started = s.start();
+  s.end();
+  resolvePlay(); await started;
+  s.elements['.loading-film'].events.error();
+  assert.equal(s.classes.has('map-arriving'), true);
+  assert.equal(s.classes.has('entering'), false);
+  assert.equal(s.timers.size, 1);
+  s.finish();
+  assert.deepEqual(s.visits, ['./selectWorldMap.html']);
+});
+
 test('reduced motion uses a short fallback and still opens the map', async () => {
   const s = setup(true);
   await s.start(); s.end();

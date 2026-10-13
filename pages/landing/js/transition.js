@@ -17,6 +17,7 @@
     }
     let busy = false;
     let arriving = false;
+    let navigated = false;
     let attempt = 0;
     let timers = [];
     const later = (fn, ms) => timers.push(setTimeout(fn, ms));
@@ -33,6 +34,7 @@
       go.textContent = 'GO';
       busy = false;
       arriving = false;
+      navigated = false;
       status.hidden = true;
       if (focus) go.focus({ preventScroll: true });
       if (resume) onRestore();
@@ -68,28 +70,33 @@
       }
     });
     function openMap() {
-      if (!arriving) return;
+      if (!arriving || navigated) return;
       arriving = false;
+      navigated = true;
       timers.forEach(clearTimeout); timers = [];
       navigate('./selectWorldMap.html');
     }
 
-    on(film, 'ended', () => {
-      if (!busy || arriving) return;
+    function beginMapArrival() {
+      if (!busy || arriving || navigated) return;
+      // Invalidate any pending play result before taking over the transition.
+      attempt += 1;
       timers.forEach(clearTimeout); timers = [];
       arriving = true;
+      film.pause();
       back.tabIndex = -1;
       back.blur();
       document.body.classList.add('map-arriving');
       // Navigate after the preview reaches the destination page's exact framing.
       // The timer also handles browsers that skip transitionend in background tabs.
       later(openMap, reduced.matches ? 250 : 1400);
-    });
+    }
+    on(film, 'ended', beginMapArrival);
     on(arrival, 'transitionend', event => {
       if (event.target === arrival && event.propertyName === 'opacity') openMap();
     });
     on(film, 'error', () => {
-      if (!busy) return;
+      if (!busy || arriving || navigated) return;
       restore();
       status.textContent = '영상을 불러오지 못했어요. 파일 또는 지원 형식을 확인해 주세요.';
       status.hidden = false;
